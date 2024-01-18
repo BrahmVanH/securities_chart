@@ -4,9 +4,10 @@ import { MongoClient } from 'mongodb';
 
 const handler: Handler = async function (event, context) {
 	const { data } = JSON.parse(event.body);
+	const connectionString: string = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pizzaTracker';
 
 	try {
-		const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+		const client = new MongoClient(connectionString);
 		await client.connect();
 
 		const database = client.db('yourDatabaseName');
