@@ -1,38 +1,24 @@
 {
-	"name": "securities_chart",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
+	"name": "",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
 	"scripts": {
-		"dev": "cd client && vite",
-		"build": "cd client && tsc && vite build",
-		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "cd client && vite preview",
-    "postinstall": "cd client && npm install"
-	},
-	"dependencies": {
-		"@netlify/functions": "^2.5.0",
-		"@types/date-fns": "^2.6.0",
-		"date-fns": "^3.2.0",
-		"mongodb": "^6.3.0",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-hook-form": "^7.49.3",
-		"react-icons": "^5.0.1",
-		"victory": "^36.8.2",
-		"victory-area": "^36.8.2",
-		"vite-plugin-pwa": "^0.17.4"
+		"start": "node server/server.js",
+		"develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+		"dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+		"install": "cd server && npm i && cd ../client && npm i",
+		"seed": "cd server && npm run seed",
+		"build": "cd client && npm run build",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^6.14.0",
-		"@typescript-eslint/parser": "^6.14.0",
-		"concurrently": "^8.2.2",
-		"@vitejs/plugin-react": "^4.2.1",
-		"dotenv": "^16.3.1",
-		"eslint": "^8.55.0",
-		"eslint-plugin-react-hooks": "^4.6.0",
-		"eslint-plugin-react-refresh": "^0.4.5",
-		"typescript": "^5.2.2",
-		"vite": "^5.0.8"
+		"concurrently": "^8.2.2"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"typescript": "^5.2.2"
 	}
 }

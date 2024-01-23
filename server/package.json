@@ -1,0 +1,40 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.ts",
+	"scripts": {
+		"start": "ts-node server.ts",
+		"dev": "nodemon server.ts",
+		"watch": "nodemon server.ts",
+		"build": "npm run minify && webpack",
+		"seed": "node seeders/seed.js",
+		"generate": "graphql-codegen --config codegen.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@graphql-tools/schema": "^10.0.2",
+		"@typegoose/typegoose": "^12.1.0",
+		"apollo-server-express": "^3.12.0",
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"mongoose": "^8.1.0",
+		"ts-node": "^10.9.2",
+		"type-graphql": "^1.1.1"
+	},
+	"devDependencies": {
+		"@graphql-codegen/cli": "5.0.0",
+		"@graphql-codegen/introspection": "4.0.0",
+		"@graphql-codegen/typescript": "4.0.1",
+		"@graphql-codegen/typescript-resolvers": "4.0.1",
+		"@types/dotenv": "^8.2.0",
+		"@types/express": "^4.17.21",
+		"@types/mongoose": "^5.11.97",
+		"@types/node": "^20.10.5",
+		"graphql-scalars": "^1.22.4",
+		"nodemon": "^2.0.3",
+		"typescript": "^5.2.2"
+	}
+}

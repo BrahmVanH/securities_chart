@@ -1,0 +1,18 @@
+scalar Date
+
+type Entry {
+	date: Date
+	financial: Int
+	fitness: Int
+	dietary: Int
+	social: Int
+	professional: Int
+}
+
+type Query {
+	getAllEntries: [Entry]
+}
+
+type Mutation {
+	createEntry(date: Date, financial: Int, fitness: Int, dietary: Int, social: Int, professional: Int): Entry
+}
