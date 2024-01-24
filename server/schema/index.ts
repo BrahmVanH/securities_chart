@@ -4,5 +4,4 @@ import { Resolvers } from '../__generated__/graphql';
 
 const resolvers: Resolvers = { Query, Mutation };
 
-
 export default resolvers;

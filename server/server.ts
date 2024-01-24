@@ -9,7 +9,7 @@ import { Resolvers } from './__generated__/graphql';
 import { DocumentNode } from 'graphql';
 
 // Import typedefs from schema
-const typeDefs: DocumentNode = readFileSync('./schema/typeDefs.graphql', { encoding: 'utf-8' }) as unknown as DocumentNode
+const typeDefs: DocumentNode = readFileSync('./schema/typeDefs.graphql', { encoding: 'utf-8' }) as unknown as DocumentNode;
 
 // Save localhost port as a var
 const PORT = process.env.PORT || 3001;

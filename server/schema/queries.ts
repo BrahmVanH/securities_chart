@@ -2,7 +2,7 @@ import { QueryResolvers, Query } from '../__generated__/graphql';
 import EntryModel from '../models/Entry';
 
 const queries: QueryResolvers = {
-	getAllEntries: async (_ : {}) => {
+	getAllEntries: async (_: {}) => {
 		try {
 			const entries = await EntryModel.find({});
 
@@ -13,9 +13,9 @@ const queries: QueryResolvers = {
 			return entries;
 		} catch (err: any) {
 			console.error('error in getting all entries from database: ' + err.message);
-      return null;
+			return null;
 		}
 	},
 };
 
-export default queries
+export default queries;
