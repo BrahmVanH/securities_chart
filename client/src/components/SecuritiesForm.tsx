@@ -6,7 +6,15 @@ import styled from 'styled-components';
 const Form = styled.form`
 	border: 1px solid white;
 	border-radius: 65deg;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 `;
+
+const InputSlider = styled(Slider)({
+	color: 'ffffff',
+});
 
 export default function SecuritiesForm() {
 	const [financial, setFinancial] = useState<number>(0);
@@ -14,7 +22,7 @@ export default function SecuritiesForm() {
 	const [dietary, setDietary] = useState<number>(0);
 	const [social, setSocial] = useState<number>(0);
 	const [professional, setProfessional] = useState<number>(0);
-  // const [inputValue, setInputValue] = useState
+	// const [inputValue, setInputValue] = useState
 	const formRef = useRef<HTMLFormElement | null>(null);
 
 	const {
@@ -23,7 +31,13 @@ export default function SecuritiesForm() {
 		formState: { errors },
 	} = useForm();
 
-	return (<Form ref={formRef}>
-    
-  </Form>);
+	return (
+		<Form ref={formRef}>
+			<InputSlider value={financial} />
+			<InputSlider value={fitness} />
+			<InputSlider value={dietary} />
+			<InputSlider value={social} />
+			<InputSlider value={professional} />
+		</Form>
+	);
 }
