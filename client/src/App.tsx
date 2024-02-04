@@ -1,20 +1,28 @@
-import { useState } from 'react';
-import styled from 'styled-components';
 import SecuritiesForm from './components/SecuritiesForm';
+import styled, { ThemeProvider } from 'styled-components';
 
 const AppWrapper = styled.div`
 	width: 100vw;
 	height: 100vh;
 	background: linear-gradient(to bottom #c7a96e, #57779d);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 function App() {
-	const [count, setCount] = useState(0);
-
+	const theme = {
+		putty: '#c7a96e',
+		sanMarino: '#57779d',
+		white: '#fff',
+	};
+  
 	return (
-		<AppWrapper>
-			<SecuritiesForm />
-		</AppWrapper>
+		<ThemeProvider theme={theme}>
+			<AppWrapper>
+				<SecuritiesForm />
+			</AppWrapper>
+		</ThemeProvider>
 	);
 }
 

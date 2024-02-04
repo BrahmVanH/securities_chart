@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { VictoryChart, VictoryBar, VictoryPolarAxis, VictoryTheme } from 'victory';
 import { IChartProps } from '../types';
 
