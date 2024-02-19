@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { useQuery } from '@apollo/client';
 import { GET_ALL_ENTRIES } from '../utils/queries';
+import { IChartData } from '../types';
 
 const EntriesContainer = styled.div`
 	width: 80%;
@@ -22,7 +23,7 @@ const EntriesContainer = styled.div`
 `;
 
 const Log = () => {
-	const [entries, setEntries] = useState<IEntry[] | null>(null);
+	const [entries, setEntries] = useState<IChartData[] | null>(null);
 
 	const { data, loading, error } = useQuery(GET_ALL_ENTRIES);
 
