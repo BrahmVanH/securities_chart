@@ -32,11 +32,11 @@ const Nav = (props: Readonly<NavProps>) => {
 	return (
 		<NavpadWrapper>
 			<Navpad>
-				<Button margin={'0.5rem 0rem 0rem 0rem'} onClick={(event) => handleShowHistory(event)}>
+				<Button $margin={'0.5rem 0rem 0rem 0rem'} onClick={(event) => handleShowHistory(event)}>
 					<IoBarChartOutline size={'32px'} />
 				</Button>
         <span style={{fontSize: '48px', color: 'white', fontWeight: '100'}}>|</span>
-				<Button margin={'0.5rem 0rem 0rem 0rem'} onClick={(event) => handleShowHistory(event)}>
+				<Button $margin={'0.5rem 0rem 0rem 0rem'} onClick={(event) => handleShowHistory(event)}>
 					<IoAddCircleOutline size={'32px'} />
 				</Button>
 			</Navpad>

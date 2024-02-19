@@ -1,3 +1,5 @@
+import { Entry } from "./__generated__/graphql";
+
 export interface IChartData {
 	financial: number;
 	fitness: number;
@@ -15,5 +17,8 @@ export type NavProps = {
 };
 
 export interface ButtonProps {
-	margin?: string;
+	$margin?: string;
 }
+
+export type FormattedEntry = Entry & { formattedDate: string };
+

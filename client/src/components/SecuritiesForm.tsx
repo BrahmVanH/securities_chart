@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Slider } from '@mui/material';
 import styled, { useTheme } from 'styled-components';
 
@@ -77,11 +77,11 @@ export default function SecuritiesForm() {
 		setProfessional(newValue as number);
 	};
 
-	const [saveEntry, { error, data }] = useMutation(CREATE_ENTRY, {
+	const [saveEntry, { error }] = useMutation(CREATE_ENTRY, {
 		variables: { financial, fitness, dietary, social, professional },
 	});
 
-	const handleResetForm = (event: Event) => {
+	const handleResetForm = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
 		setFinancial(0);
 		setFitness(0);
@@ -90,7 +90,8 @@ export default function SecuritiesForm() {
 		setProfessional(0);
 	};
 
-	const handleSaveEntry = async (event: Event) => {
+	const handleSaveEntry = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		console.log('clicked');
 		try {
 			event.preventDefault();
 			const newEntry = await saveEntry();
@@ -98,6 +99,8 @@ export default function SecuritiesForm() {
 			if (!newEntry) {
 				console.error(error);
 				throw new Error('Error saving entry');
+			} else {
+				console.log(newEntry);
 			}
 		} catch (error) {
 			console.error(error);
@@ -120,10 +123,10 @@ export default function SecuritiesForm() {
 				<InputSlider value={professional} min={0} max={5} onChange={handleProfChange} />
 			</SliderWrapper>
 			<ButtonWrapper>
-				<Button onClick={() => handleResetForm}>
+				<Button onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleResetForm(event)}>
 					<IoCloseCircleOutline size={'32px'} />
 				</Button>
-				<Button onClick={() => handleSaveEntry}>
+				<Button onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleSaveEntry(event)}>
 					<IoSendOutline size={'32px'} />
 				</Button>
 			</ButtonWrapper>

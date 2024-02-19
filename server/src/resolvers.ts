@@ -33,6 +33,11 @@ const resolvers: Resolvers = {
 					professional,
 				});
 
+				if (!newEntry) {
+					
+					throw new Error('Error in creating new entry');
+				}
+
 				return newEntry;
 			} catch (err) {
 				console.error('> createEntry error: ', err);

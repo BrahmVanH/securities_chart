@@ -4,13 +4,23 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_ENTRIES } from '../utils/queries';
 import { IChartData } from '../types';
-import { Entry } from '../__generated__/graphql';
+import { FormattedEntry } from '../types';
+import { formatAllDates } from '../utils/helpers';
+
+const HistoryWrapper = styled.div(({ theme }) => ({
+	width: '80%',
+	height: 'min-content',
+	backgroundColor: 'transparent',
+	border: `1px solid ${theme.white}`,
+	borderRadius: '40px',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
+}));
 
 const EntriesContainer = styled.div`
-	width: 80%;
 	height: 75%;
-	padding: 2rem;
-	border: 1px solid white;
 	border-radius: 30px;
 	display: flex;
 	flex-direction: column;
@@ -24,10 +34,10 @@ const EntriesContainer = styled.div`
 `;
 
 const EntryCard = styled.div`
-	width: 100%;
-	height: 10%;
-	border: 1px solid white;
-	border-radius: 30px;
+	padding: 0.5rem;
+	border-bottom: 1px solid white;
+	border-right: 1px solid white;
+	border-radius: 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -35,39 +45,40 @@ const EntryCard = styled.div`
 `;
 
 const History = () => {
-	const [entries, setEntries] = useState<Entry[] | null>(null);
+	const [entries, setEntries] = useState<FormattedEntry[] | null>(null);
 
 	const { data, loading, error } = useQuery(GET_ALL_ENTRIES);
 
 	useEffect(() => {
 		if (!loading && data?.allEntries) {
 			console.log(data.allEntries);
-			setEntries(data.allEntries.filter((entry): entry is Entry => entry !== null));
+      const formattedEntries = formatAllDates(data.allEntries.filter((entry): entry is FormattedEntry => entry !== null));
+			setEntries(formattedEntries);
 		} else if (error) {
 			console.log(error);
 			throw new Error('Error fetching entries');
 		}
-	}, []);
+	}, [data, loading, error]);
+
+	useEffect(() => {
+		console.log(entries);
+	}, [entries]);
+
 	return (
-		<div>
-			<h1>Securities Log</h1>
+		<HistoryWrapper>
+			<h1>History</h1>
 			{entries ? (
 				<EntriesContainer>
-					{/* {entries.map((entry, index) => (
+					{entries.map((entry, index) => (
 						<EntryCard key={index}>
-							<p >{entry.date}</p>
-              <p>{entry.dietary}</p>
-              <p>{entry.financial}</p> 
-              <p>{entry.fitness}</p>
-              <p>{entry.professional}</p>
-              <p>{entry.social}</p>
+							<p>{entry.formattedDate}</p>
 						</EntryCard>
-					))} */}
+					))}
 				</EntriesContainer>
 			) : (
 				<></>
 			)}
-		</div>
+		</HistoryWrapper>
 	);
 };
 
