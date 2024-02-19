@@ -1,16 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
-import { Button, Slider } from '@mui/material';
-import styled from 'styled-components';
+import { Slider } from '@mui/material';
+import styled, { useTheme } from 'styled-components';
 
 import { CREATE_ENTRY } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
+import { Button } from './StyledComponents';
+
+import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 
 const Form = styled.form`
 	width: 80%;
-	height: 75%;
+	height: 50%;
 	padding: 2rem;
 	border: 1px solid white;
-	border-radius: 30px;
+	border-radius: 65px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -33,6 +36,14 @@ const SliderWrapper = styled.div`
 const InputSlider = styled(Slider)(({ theme }) => ({
 	color: `${theme.white} !important`,
 }));
+
+const ButtonWrapper = styled.div`
+	margin-top: 2rem;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-end;
+	width: 100%;
+`;
 
 export default function SecuritiesForm() {
 	const [financial, setFinancial] = useState<number>(0);
@@ -70,12 +81,20 @@ export default function SecuritiesForm() {
 		variables: { financial, fitness, dietary, social, professional },
 	});
 
+	const handleResetForm = (event: Event) => {
+		event.preventDefault();
+		setFinancial(0);
+		setFitness(0);
+		setDietary(0);
+		setSocial(0);
+		setProfessional(0);
+	};
+
 	const handleSaveEntry = async (event: Event) => {
 		try {
-
 			event.preventDefault();
 			const newEntry = await saveEntry();
-			
+
 			if (!newEntry) {
 				console.error(error);
 				throw new Error('Error saving entry');
@@ -84,7 +103,7 @@ export default function SecuritiesForm() {
 			console.error(error);
 			throw new Error('Error saving entry');
 		}
-	}
+	};
 
 	return (
 		<Form ref={formRef}>
@@ -100,9 +119,14 @@ export default function SecuritiesForm() {
 				<label htmlFor='professional'>Professional</label>
 				<InputSlider value={professional} min={0} max={5} onChange={handleProfChange} />
 			</SliderWrapper>
-			<button onClick={() => handleSaveEntry}>
-				Submit
-			</button>
+			<ButtonWrapper>
+				<Button onClick={() => handleResetForm}>
+					<IoCloseCircleOutline size={'32px'} />
+				</Button>
+				<Button onClick={() => handleSaveEntry}>
+					<IoSendOutline size={'32px'} />
+				</Button>
+			</ButtonWrapper>
 		</Form>
 	);
 }

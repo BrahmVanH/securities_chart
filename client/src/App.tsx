@@ -4,8 +4,9 @@ import { onError } from '@apollo/client/link/error';
 import { useState } from 'react';
 
 import SecuritiesForm from './components/SecuritiesForm';
-import Log from './components/Log';
+import History from './components/History';
 import styled, { ThemeProvider } from 'styled-components';
+import Nav from './components/Nav';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
 	if (graphQLErrors) {
@@ -30,7 +31,8 @@ const client = new ApolloClient({
 const AppWrapper = styled.div`
 	width: 100vw;
 	height: 100vh;
-	background: linear-gradient(to bottom #c7a96e, #57779d);
+	/* background: linear-gradient(#c7a96e, #57779d); */
+	background-color: transparent;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -38,34 +40,25 @@ const AppWrapper = styled.div`
 `;
 
 function App() {
-	const [showLog, setShowLog] = useState<boolean>(false);
+	const [showHistory, setShowHistory] = useState<boolean>(false);
 	const theme = {
 		putty: '#c7a96e',
 		sanMarino: '#57779d',
 		white: '#fff',
 	};
 
-	const handleShowLog = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	const handleShowHistory = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
 		console.log('clicked');
-		setShowLog(!showLog);
+		setShowHistory(!showHistory);
 	};
 
 	return (
 		<ApolloProvider client={client}>
 			<ThemeProvider theme={theme}>
 				<AppWrapper>
-					{!showLog ? (
-						<>
-							<SecuritiesForm />
-							<button onClick={(event) => handleShowLog(event)}>Show Log</button>
-						</>
-					) : (
-						<>
-							<Log />
-							<button onClick={(event) => handleShowLog(event)}>Show Form</button>
-						</>
-					)}
+					{!showHistory ? <SecuritiesForm /> : <History />}
+					<Nav handleShowHistory={handleShowHistory} />
 				</AppWrapper>
 			</ThemeProvider>
 		</ApolloProvider>

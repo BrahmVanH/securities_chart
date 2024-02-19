@@ -24,17 +24,17 @@ const EntriesContainer = styled.div`
 `;
 
 const EntryCard = styled.div`
-  width: 100%;
-  height: 10%;
-  border: 1px solid white;
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
+	width: 100%;
+	height: 10%;
+	border: 1px solid white;
+	border-radius: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem 0;
 `;
 
-const Log = () => {
+const History = () => {
 	const [entries, setEntries] = useState<Entry[] | null>(null);
 
 	const { data, loading, error } = useQuery(GET_ALL_ENTRIES);
@@ -53,16 +53,16 @@ const Log = () => {
 			<h1>Securities Log</h1>
 			{entries ? (
 				<EntriesContainer>
-					{entries.map((entry, index) => (
+					{/* {entries.map((entry, index) => (
 						<EntryCard key={index}>
-							<p style={{fontSize: '14px'}}>{entry.date}</p>
+							<p >{entry.date}</p>
               <p>{entry.dietary}</p>
               <p>{entry.financial}</p> 
               <p>{entry.fitness}</p>
               <p>{entry.professional}</p>
               <p>{entry.social}</p>
 						</EntryCard>
-					))}
+					))} */}
 				</EntriesContainer>
 			) : (
 				<></>
@@ -71,4 +71,4 @@ const Log = () => {
 	);
 };
 
-export default Log;
+export default History;
