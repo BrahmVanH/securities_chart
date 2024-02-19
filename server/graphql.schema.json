@@ -131,18 +131,6 @@
             "description": null,
             "args": [
               {
-                "name": "date",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Date",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
                 "name": "dietary",
                 "description": null,
                 "type": {
@@ -223,7 +211,7 @@
         "description": null,
         "fields": [
           {
-            "name": "getAllEntries",
+            "name": "allEntries",
             "description": null,
             "args": [],
             "type": {
