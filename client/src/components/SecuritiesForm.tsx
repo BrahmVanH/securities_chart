@@ -1,6 +1,9 @@
-import { useState, useRef } from 'react';
-import { Slider } from '@mui/material';
+import { useState, useRef, useEffect } from 'react';
+import { Button, Slider } from '@mui/material';
 import styled from 'styled-components';
+
+import { CREATE_ENTRY } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
 
 const Form = styled.form`
 	width: 80%;
@@ -20,6 +23,10 @@ const Form = styled.form`
 `;
 
 const SliderWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 	width: 80%;
 `;
 
@@ -59,15 +66,43 @@ export default function SecuritiesForm() {
 		setProfessional(newValue as number);
 	};
 
+	const [saveEntry, { error, data }] = useMutation(CREATE_ENTRY, {
+		variables: { financial, fitness, dietary, social, professional },
+	});
+
+	const handleSaveEntry = async (event: Event) => {
+		try {
+
+			event.preventDefault();
+			const newEntry = await saveEntry();
+			
+			if (!newEntry) {
+				console.error(error);
+				throw new Error('Error saving entry');
+			}
+		} catch (error) {
+			console.error(error);
+			throw new Error('Error saving entry');
+		}
+	}
+
 	return (
 		<Form ref={formRef}>
 			<SliderWrapper>
+				<label htmlFor='financial'>Financial</label>
 				<InputSlider value={financial} min={0} max={5} onChange={handleFinChange} />
+				<label htmlFor='fitness'>Fitness</label>
 				<InputSlider value={fitness} min={0} max={5} onChange={handleFitChange} />
+				<label htmlFor='dietary'>Dietary</label>
 				<InputSlider value={dietary} min={0} max={5} onChange={handleDietChange} />
+				<label htmlFor='social'>Social</label>
 				<InputSlider value={social} min={0} max={5} onChange={handleSocChange} />
+				<label htmlFor='professional'>Professional</label>
 				<InputSlider value={professional} min={0} max={5} onChange={handleProfChange} />
 			</SliderWrapper>
+			<button onClick={() => handleSaveEntry}>
+				Submit
+			</button>
 		</Form>
 	);
 }
