@@ -22,7 +22,10 @@ const resolvers: Resolvers = {
 		},
 	},
 	Mutation: {
-		createEntry: async (_: {}, __: {}, { financial, fitness, dietary, social, professional }: IEntry) => {
+		createEntry: async (_: {}, args, { models }: any) => {
+			console.log('_', _);
+			const { financial, fitness, dietary, social, professional } = args;
+			console.log('createEntry mutation', financial, fitness, dietary, social, professional);
 			try {
 				if (financial && fitness && dietary && social && professional) {
 					const newEntry = await EntryModel.create({

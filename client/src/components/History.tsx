@@ -15,6 +15,7 @@ const HistoryWrapper = styled.div(({ theme }) => ({
 	marginTop: '10%',
 	width: '80%',
 	height: 'min-content',
+	maxHeight: '75%',
 	backgroundColor: 'transparent',
 	border: `1px solid ${theme.stroke}`,
 	borderRadius: '40px',
@@ -22,6 +23,7 @@ const HistoryWrapper = styled.div(({ theme }) => ({
 	flexDirection: 'column',
 	justifyContent: 'center',
 	alignItems: 'center',
+	overflowY: 'scroll',
 }));
 
 const EntriesContainer = styled.div`
