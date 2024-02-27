@@ -24,21 +24,23 @@ const resolvers: Resolvers = {
 	Mutation: {
 		createEntry: async (_: {}, __: {}, { financial, fitness, dietary, social, professional }: IEntry) => {
 			try {
-				const newEntry = await EntryModel.create({
-					date: new Date(),
-					financial,
-					fitness,
-					dietary,
-					social,
-					professional,
-				});
-
-				if (!newEntry) {
-					
-					throw new Error('Error in creating new entry');
+				if (financial && fitness && dietary && social && professional) {
+					const newEntry = await EntryModel.create({
+						date: new Date(),
+						financial,
+						fitness,
+						dietary,
+						social,
+						professional,
+					});
+					if (!newEntry) {
+						throw new Error('Error in creating new entry');
+					}
+					console.log(newEntry);
+					return newEntry;
+				} else {
+					throw new Error('One or more fields are missing');
 				}
-
-				return newEntry;
 			} catch (err) {
 				console.error('> createEntry error: ', err);
 

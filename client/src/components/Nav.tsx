@@ -18,7 +18,7 @@ const Navpad = styled.nav(({ theme }) => ({
 	width: '75%',
 	height: '10%',
 	backgroundColor: theme.sanMarino,
-	border: `1px solid ${theme.white}`,
+	border: `1px solid ${theme.stroke}`,
 	borderTopLeftRadius: '45px',
 	borderTopRightRadius: '45px',
 	display: 'flex',

@@ -1,4 +1,4 @@
-import { Entry } from "./__generated__/graphql";
+import { Entry } from './__generated__/graphql';
 
 export interface IChartData {
 	financial: number;
@@ -8,8 +8,12 @@ export interface IChartData {
 	professional: number;
 }
 
+export interface IEntry extends IChartData {
+	date: string;
+}
+
 export interface IChartProps {
-	data: IChartData;
+	data: FormattedEntry;
 }
 
 export type NavProps = {
@@ -20,5 +24,8 @@ export interface ButtonProps {
 	$margin?: string;
 }
 
-export type FormattedEntry = Entry & { formattedDate: string };
+export type FormattedEntry = Entry & { formattedDate?: string };
 
+export interface IEntryCardProps {
+	entry?: FormattedEntry;
+}

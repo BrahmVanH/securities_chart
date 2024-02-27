@@ -2,8 +2,8 @@
 import { VictoryChart, VictoryBar, VictoryPolarAxis, VictoryTheme } from 'victory';
 import { IChartProps } from '../types';
 
-export default function Chart(props: Readonly<IChartProps>) {
-	const { data } = props;
+const Chart = (props: Readonly<IChartProps>) => {
+	const data = props?.data;
 
 	return (
 		<VictoryChart polar theme={VictoryTheme.material}>
@@ -24,4 +24,6 @@ export default function Chart(props: Readonly<IChartProps>) {
 			/>
 		</VictoryChart>
 	);
-}
+};
+
+export default Chart;

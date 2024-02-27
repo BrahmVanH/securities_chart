@@ -7,6 +7,6 @@ export const Button = styled.button<ButtonProps>(({ theme, $margin }) => ({
 	margin: $margin || '0rem',
 	padding: '0rem',
 	backgroundColor: 'transparent',
-	color: theme.white,
+	color: theme.stroke,
 	fontSize: '1.5rem',
 }));

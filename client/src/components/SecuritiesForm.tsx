@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Slider } from '@mui/material';
 import styled, { useTheme } from 'styled-components';
 
@@ -9,6 +9,7 @@ import { Button } from './StyledComponents';
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 
 const Form = styled.form`
+	margin-top: 10%;
 	width: 80%;
 	height: 50%;
 	padding: 2rem;
@@ -34,7 +35,7 @@ const SliderWrapper = styled.div`
 `;
 
 const InputSlider = styled(Slider)(({ theme }) => ({
-	color: `${theme.white} !important`,
+	color: `${theme.stroke} !important`,
 }));
 
 const ButtonWrapper = styled.div`
@@ -77,9 +78,15 @@ export default function SecuritiesForm() {
 		setProfessional(newValue as number);
 	};
 
-	const [saveEntry, { error }] = useMutation(CREATE_ENTRY, {
-		variables: { financial, fitness, dietary, social, professional },
-	});
+	useEffect(() => {
+		console.log('financial', financial);
+		console.log('fitness', fitness);
+		console.log('dietary', dietary);
+		console.log('social', social);
+		console.log('professional', professional);
+	}, [financial, fitness, dietary, social, professional]);
+
+	const [saveEntry] = useMutation(CREATE_ENTRY);
 
 	const handleResetForm = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
@@ -91,17 +98,20 @@ export default function SecuritiesForm() {
 	};
 
 	const handleSaveEntry = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		event.preventDefault();
 		console.log('clicked');
 		try {
-			event.preventDefault();
-			const newEntry = await saveEntry();
+			if (financial && fitness && dietary && social && professional) {
+				const { data } = await saveEntry({ variables: { financial, fitness, dietary, social, professional } });
 
-			if (!newEntry) {
-				console.error(error);
-				throw new Error('Error saving entry');
+				if (!data) {
+					throw new Error('Error saving entry');
+				}
+				console.log(data);
 			} else {
-				console.log(newEntry);
+				throw new Error('One or more fields are missing');
 			}
+			formRef.current?.reset();
 		} catch (error) {
 			console.error(error);
 			throw new Error('Error saving entry');

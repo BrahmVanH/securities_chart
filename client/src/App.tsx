@@ -31,11 +31,10 @@ const client = new ApolloClient({
 const AppWrapper = styled.div`
 	width: 100vw;
 	height: 100vh;
-	/* background: linear-gradient(#c7a96e, #57779d); */
 	background-color: transparent;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 `;
 
@@ -44,7 +43,7 @@ function App() {
 	const theme = {
 		putty: '#c7a96e',
 		sanMarino: '#57779d',
-		white: '#fff',
+		stroke: '#fff',
 	};
 
 	const handleShowHistory = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
