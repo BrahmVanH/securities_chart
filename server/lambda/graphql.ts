@@ -1,6 +1,5 @@
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import { createLambdaServer } from './bundle/server';
-import { responsePathAsArray } from 'graphql';
 
 export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
 	try {
