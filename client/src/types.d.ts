@@ -29,3 +29,7 @@ export type FormattedEntry = Entry & { formattedDate?: string };
 export interface IEntryCardProps {
 	entry?: FormattedEntry;
 }
+
+export interface IStarRatubgRatingProps {
+	rating: number;
+}

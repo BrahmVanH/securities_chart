@@ -23,7 +23,6 @@ const HistoryWrapper = styled.div(({ theme }) => ({
 	flexDirection: 'column',
 	justifyContent: 'center',
 	alignItems: 'center',
-	overflowY: 'scroll',
 }));
 
 const EntriesContainer = styled.div`
@@ -36,6 +35,7 @@ const EntriesContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin: 0.5rem;
+	overflow-Y: scroll;
 
 	@media (min-width: 768px) {
 		width: 30%;
@@ -69,10 +69,6 @@ const History = () => {
 			throw new Error('Error fetching entries');
 		}
 	}, [data, loading, error]);
-
-	useEffect(() => {
-		console.log(entries);
-	}, [entries]);
 
 	return (
 		<HistoryWrapper>
