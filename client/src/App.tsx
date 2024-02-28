@@ -48,7 +48,6 @@ function App() {
 
 	const handleShowHistory = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
-		console.log('clicked');
 		setShowHistory(!showHistory);
 	};
 

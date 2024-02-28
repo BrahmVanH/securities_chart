@@ -59,11 +59,10 @@ const History = () => {
 
 	useEffect(() => {
 		if (!loading && data?.allEntries) {
-			console.log(data.allEntries);
 			const formattedEntries = formatAllDates(data.allEntries.filter((entry): entry is FormattedEntry => entry !== null));
 			setEntries(formattedEntries);
 		} else if (error) {
-			console.log(error);
+			console.error(error);
 			throw new Error('Error fetching entries');
 		}
 	}, [data, loading, error]);

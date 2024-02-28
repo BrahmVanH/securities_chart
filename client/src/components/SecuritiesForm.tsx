@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Slider } from '@mui/material';
 import styled from 'styled-components';
 
@@ -78,13 +78,6 @@ export default function SecuritiesForm() {
 		setProfessional(newValue as number);
 	};
 
-	useEffect(() => {
-		console.log('financial', financial);
-		console.log('fitness', fitness);
-		console.log('dietary', dietary);
-		console.log('social', social);
-		console.log('professional', professional);
-	}, [financial, fitness, dietary, social, professional]);
 
 	const [saveEntry] = useMutation(CREATE_ENTRY);
 
@@ -99,7 +92,6 @@ export default function SecuritiesForm() {
 
 	const handleSaveEntry = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
-		console.log('clicked');
 		try {
 			if (financial && fitness && dietary && social && professional) {
 				const { data } = await saveEntry({ variables: { financial, fitness, dietary, social, professional } });
@@ -107,7 +99,6 @@ export default function SecuritiesForm() {
 				if (!data) {
 					throw new Error('Error saving entry');
 				}
-				console.log(data);
 			} else {
 				throw new Error('One or more fields are missing');
 			}

@@ -23,9 +23,7 @@ const resolvers: Resolvers = {
 	},
 	Mutation: {
 		createEntry: async (_: {}, args, { models }: any) => {
-			console.log('_', _);
 			const { financial, fitness, dietary, social, professional } = args;
-			console.log('createEntry mutation', financial, fitness, dietary, social, professional);
 			try {
 				if (financial && fitness && dietary && social && professional) {
 					const newEntry = await EntryModel.create({
@@ -39,7 +37,6 @@ const resolvers: Resolvers = {
 					if (!newEntry) {
 						throw new Error('Error in creating new entry');
 					}
-					console.log(newEntry);
 					return newEntry;
 				} else {
 					throw new Error('One or more fields are missing');
