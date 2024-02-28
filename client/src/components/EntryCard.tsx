@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FiBarChart2 } from 'react-icons/fi';
-import { formatDistanceToNow } from 'date-fns';
+// import { formatDistanceToNow } from 'date-fns';
 import Chart from './Chart';
 import { FormattedEntry, IEntryCardProps } from '../types';
 import { getObjValuesAverage } from '../utils/helpers';
@@ -31,7 +31,7 @@ const Preview = styled.div`
 const EntryCard = (props: IEntryCardProps) => {
 	const entry: FormattedEntry | undefined = props?.entry;
 
-	const [formatDate, setFormatDate] = useState<string | null>(null);
+	// const [formatDate, setFormatDate] = useState<string | null>(null);
 	const [openDetails, setOpenDetails] = useState<boolean>(false);
 	const [averageRating, setAverageRating] = useState<number>(1);
 

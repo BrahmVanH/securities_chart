@@ -4,12 +4,10 @@ import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 
 import { GET_ALL_ENTRIES } from '../utils/queries';
-import { IChartData } from '../types';
 import { FormattedEntry } from '../types';
 import { formatAllDates } from '../utils/helpers';
 
 import EntryCard from './EntryCard';
-import Chart from './Chart';
 
 const HistoryWrapper = styled.div(({ theme }) => ({
 	marginTop: '10%',

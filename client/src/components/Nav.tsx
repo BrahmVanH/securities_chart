@@ -1,4 +1,4 @@
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import { NavProps } from '../types';
 import { Button } from './StyledComponents';
 
@@ -35,7 +35,7 @@ const Nav = (props: Readonly<NavProps>) => {
 				<Button $margin={'0.5rem 0rem 0rem 0rem'} onClick={(event) => handleShowHistory(event)}>
 					<IoBarChartOutline size={'32px'} />
 				</Button>
-        <span style={{fontSize: '48px', color: 'white', fontWeight: '100'}}>|</span>
+				<span style={{ fontSize: '48px', color: 'white', fontWeight: '100' }}>|</span>
 				<Button $margin={'0.5rem 0rem 0rem 0rem'} onClick={(event) => handleShowHistory(event)}>
 					<IoAddCircleOutline size={'32px'} />
 				</Button>

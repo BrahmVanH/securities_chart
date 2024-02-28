@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Slider } from '@mui/material';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 
 import { CREATE_ENTRY } from '../utils/mutations';
 import { useMutation } from '@apollo/client';

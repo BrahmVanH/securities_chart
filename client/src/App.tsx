@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache, gql } from '@apollo/client';
+import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import Nav from './components/Nav';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
 	if (graphQLErrors) {
-		graphQLErrors.map(({ message, locations, path }) => {
+		graphQLErrors.map(({ message }) => {
 			console.log(`GraphQL error: ${message}`);
 		});
 	}
