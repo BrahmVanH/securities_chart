@@ -11,6 +11,8 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
 			server.createHandler()(event, context, cb);
 		});
 		console.log('result: ', result);
+		const resolvedResult = await result;
+		console.log('resolvedResult: ', resolvedResult);
 		return result;
 
 		// const cb = (error: string | Error | null | undefined, args: any) =>
