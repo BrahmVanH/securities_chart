@@ -1,21 +1,30 @@
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import { createLambdaServer } from './bundle/server';
+import { responsePathAsArray } from 'graphql';
 
 export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
 	try {
+		console.log('event: ', event);
+		console.log('context: ', context);
 		const server = createLambdaServer();
-		return new Promise((resolve, reject) => {
-			const cb = (error: string | Error | null | undefined, args: any) => {
-				if (error) {
-					console.error('error in handler: ', error);
-					reject(error);
-				} else {
-					resolve(args);
-				}
-			};
-
+		const result = new Promise((resolve, reject) => {
+			const cb = (err: Error, args: any) => (err ? reject(err) : resolve(args));
 			server.createHandler()(event, context, cb);
 		});
+		console.log('result: ', result);
+		return result;
+
+		// const cb = (error: string | Error | null | undefined, args: any) =>
+		//  {
+		// 	if (error) {
+		// 		console.error('error in handler: ', error);
+		// 		reject(error);
+		// 	} else {
+		// 		resolve(args);
+		// 		server.createHandler()(event, context, cb);
+		// 	}
+
+		// };
 	} catch (error) {
 		console.error('error in handler: ', error);
 		throw error;

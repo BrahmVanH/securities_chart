@@ -95,6 +95,7 @@ export default function SecuritiesForm() {
 		try {
 			if (financial && fitness && dietary && social && professional) {
 				const { data } = await saveEntry({ variables: { financial, fitness, dietary, social, professional } });
+				if (data) console.log('data: ', data);
 
 				if (!data) {
 					throw new Error('Error saving entry');

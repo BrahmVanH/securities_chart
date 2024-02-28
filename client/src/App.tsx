@@ -19,7 +19,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 	}
 });
 
-const httpLink = new HttpLink({ uri: process.env.NODE_ENV === 'production' ? '/.netlify/functions/graphql' : 'http://localhost:4000/graphql' });
+const httpLink = new HttpLink({ uri: process.env.NODE_ENV === 'production' ? 'http://localhost:8888/.netlify/functions/graphql' : 'http://localhost:4000/graphql' });
 
 const link = ApolloLink.from([errorLink, httpLink]);
 

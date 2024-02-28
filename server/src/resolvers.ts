@@ -23,6 +23,8 @@ const resolvers: Resolvers = {
 	},
 	Mutation: {
 		createEntry: async (_: {}, args, { models }: any) => {
+			console.log('createEntry args: ', args);
+			console.log('createEntry models: ', models);
 			const { financial, fitness, dietary, social, professional } = args;
 			try {
 				if (financial && fitness && dietary && social && professional) {

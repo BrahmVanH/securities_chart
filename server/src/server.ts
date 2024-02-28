@@ -8,13 +8,12 @@ import EntryModel from './model';
 import typeDefs from './schema';
 import resolvers from './resolvers';
 
-
 const uri: string = process.env.MONGODB_URI ?? 'mongodb://127.0.0.1:27017/securitiesTracker';
 
 let cachedDb: Connection;
 
-
 const connectToDb = async () => {
+	console.log('connectToDb starting');
 	try {
 		if (cachedDb) return;
 
@@ -26,8 +25,10 @@ const connectToDb = async () => {
 	}
 };
 
-const createLambdaServer = () =>
-	new ApolloServerLambda({
+const createLambdaServer = () => {
+	console.log('createLambdaServer starting');
+
+	const server = new ApolloServerLambda({
 		typeDefs,
 		resolvers,
 		introspection: true,
@@ -41,6 +42,10 @@ const createLambdaServer = () =>
 			};
 		},
 	});
+	console.log('createLambdaServer server: ', server);
+	return server;
+
+};
 
 const createLocalServer = () =>
 	new ApolloServer({
