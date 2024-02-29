@@ -1,7 +1,7 @@
-import { APIGatewayProxyEvent, Context, APIGatewayEvent } from 'aws-lambda';
+import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import { createLambdaServer } from './bundle/server';
 
-export const handler = async (event: APIGatewayEvent, context: Context) => {
+export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
 	try {
 		console.log('event: ', event);
 		console.log('context: ', context);
