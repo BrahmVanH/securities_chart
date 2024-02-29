@@ -39,7 +39,7 @@ const createLambdaServer = () =>
 				},
 			};
 		},
-	});
+	}).createHandler();
 
 const createLocalServer = () =>
 	new ApolloServer({
