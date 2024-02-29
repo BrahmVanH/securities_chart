@@ -44,6 +44,8 @@ const createLambdaServer = async () => {
 			},
 		});
 
+		console.log('createLambdaServer server: ', server);
+
 		return server;
 	} catch (error) {
 		console.error('Error creating Lambda server', error);
