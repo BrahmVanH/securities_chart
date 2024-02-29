@@ -8,24 +8,24 @@ import History from './components/History';
 import styled, { ThemeProvider } from 'styled-components';
 import Nav from './components/Nav';
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-	if (graphQLErrors) {
-		graphQLErrors.map(({ message }) => {
-			console.log(`GraphQL error: ${message}`);
-		});
-	}
-	if (networkError) {
-		console.log(`Network error: ${networkError}`);
-	}
-});
+// const errorLink = onError(({ graphQLErrors, networkError }) => {
+// 	if (graphQLErrors) {
+// 		graphQLErrors.map(({ message }) => {
+// 			console.log(`GraphQL error: ${message}`);
+// 		});
+// 	}
+// 	if (networkError) {
+// 		console.log(`Network error: ${networkError}`);
+// 	}
+// });
 
-const httpLink = new HttpLink({ uri: process.env.NODE_ENV === 'production' ? '/.netlify/functions/graphql' : 'http://localhost:4000/graphql' });
-
-const link = ApolloLink.from([errorLink, httpLink]);
+// const httpLink = new HttpLink({ uri: process.env.NODE_ENV === 'production' ? '/.netlify/functions/graphql' : 'http://localhost:4000/graphql' });
+const uri = process.env.NODE_ENV === 'production' ? '/.netlify/functions/graphql' : 'http://localhost:4000/graphql';
+// const link = ApolloLink.from([errorLink, httpLink]);
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link,
+	link: new HttpLink({ uri }),
 });
 
 const AppWrapper = styled.div`
