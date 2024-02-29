@@ -25,29 +25,21 @@ const connectToDb = async () => {
 	}
 };
 
-const createLambdaServer = () => {
-		console.log('createLambdaServer starting');
+const createLambdaServer = () =>
+	new ApolloServerLambda({
+		typeDefs,
+		resolvers,
+		introspection: true,
+		context: async () => {
+			await connectToDb();
 
-		const server = new ApolloServerLambda({
-			typeDefs,
-			resolvers,
-			introspection: true,
-			context: async () => {
-				await connectToDb();
-
-				return {
-					models: {
-						EntryModel,
-					},
-				};
-			},
-		});
-
-		console.log('createLambdaServer server: ', server);
-
-		return server;
-
-};
+			return {
+				models: {
+					EntryModel,
+				},
+			};
+		},
+	});
 
 const createLocalServer = () =>
 	new ApolloServer({
