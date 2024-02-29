@@ -1,5 +1,6 @@
-import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+	//  ApolloLink,
+// import { onError } from '@apollo/client/link/error';
 
 import { useState } from 'react';
 
