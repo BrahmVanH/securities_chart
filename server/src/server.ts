@@ -29,7 +29,7 @@ const createLambdaServer = async () => {
 	try {
 		console.log('createLambdaServer starting');
 
-		new ApolloServerLambda({
+		const server = new ApolloServerLambda({
 			typeDefs,
 			resolvers,
 			introspection: true,
@@ -43,6 +43,8 @@ const createLambdaServer = async () => {
 				};
 			},
 		});
+
+		return server;
 	} catch (error) {
 		console.error('Error creating Lambda server', error);
 	}
