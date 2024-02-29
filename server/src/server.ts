@@ -42,7 +42,7 @@ const createLambdaServer = async () => {
 					},
 				};
 			},
-		}).createHandler();
+		});
 	} catch (error) {
 		console.error('Error creating Lambda server', error);
 	}
