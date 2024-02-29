@@ -21,9 +21,9 @@ import Nav from './components/Nav';
 // });
 
 // const httpLink = new HttpLink({ uri: process.env.NODE_ENV === 'production' ? '/.netlify/functions/graphql' : 'http://localhost:4000/graphql' });
-const uri = process.env.NODE_ENV === 'production' ? '/.netlify/functions/graphql' : 'http://localhost:4000/graphql';
 // const link = ApolloLink.from([errorLink, httpLink]);
 
+const uri = process.env.NODE_ENV === 'production' ? '/.netlify/functions/graphql' : 'http://localhost:4000/graphql';
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	link: new HttpLink({ uri }),
