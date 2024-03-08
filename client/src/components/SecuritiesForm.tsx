@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Slider } from '@mui/material';
 import styled from 'styled-components';
 
-import { CREATE_ENTRY } from '../utils/mutations';
-import { useMutation } from '@apollo/client';
 import { Button } from './StyledComponents';
+import { useForm, FieldValues } from 'react-hook-form';
+import { getEntries, sendForm } from '../utils/API';
 
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 
@@ -47,12 +47,19 @@ const ButtonWrapper = styled.div`
 `;
 
 export default function SecuritiesForm() {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<FieldValues>();
+
 	const [financial, setFinancial] = useState<number>(0);
 	const [fitness, setFitness] = useState<number>(0);
 	const [dietary, setDietary] = useState<number>(0);
 	const [social, setSocial] = useState<number>(0);
 	const [professional, setProfessional] = useState<number>(0);
 	const formRef = useRef<HTMLFormElement | null>(null);
+	const [formInput, setFormInput] = useState<FieldValues | null>(null);
 
 	const handleFinChange = (event: Event, newValue: number | number[]) => {
 		event.preventDefault();
@@ -78,9 +85,6 @@ export default function SecuritiesForm() {
 		setProfessional(newValue as number);
 	};
 
-
-	const [saveEntry] = useMutation(CREATE_ENTRY);
-
 	const handleResetForm = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
 		setFinancial(0);
@@ -90,31 +94,61 @@ export default function SecuritiesForm() {
 		setProfessional(0);
 	};
 
-	const handleSaveEntry = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		event.preventDefault();
-		try {
-			if (financial && fitness && dietary && social && professional) {
-				const { data } = await saveEntry({ variables: { financial, fitness, dietary, social, professional } });
-				if (data) console.log('data: ', data);
+	// const handleSaveEntry = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	// 	event.preventDefault();
+	// 	try {
+	// 		if (financial && fitness && dietary && social && professional) {
+	// 			const { data } = await saveEntry({ variables: { financial, fitness, dietary, social, professional } });
+	// 			if (data) console.log('data: ', data);
 
-				if (!data) {
-					throw new Error('Error saving entry');
-				}
-			} else {
-				throw new Error('One or more fields are missing');
+	// 			if (!data) {
+	// 				throw new Error('Error saving entry');
+	// 			}
+	// 		} else {
+	// 			throw new Error('One or more fields are missing');
+	// 		}
+	// 		formRef.current?.reset();
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 		throw new Error('Error saving entry');
+	// 	}
+	// };
+
+	const handleSendForm = async (formInput: FieldValues) => {
+		try {
+			if (!formInput.file || !formInput.financial) {
+				throw new Error('file and financial fields are required');
 			}
+
+			const response = await sendForm(formInput);
+			if (!response.ok) {
+				throw new Error('error in sending form');
+			} else {
+				console.log('response', response);
+			}
+
 			formRef.current?.reset();
 		} catch (error) {
-			console.error(error);
-			throw new Error('Error saving entry');
+			console.error('error', error);
+			throw new Error('error in sending form');
 		}
 	};
 
+	useEffect(() => {
+		if (formInput) {
+			handleSendForm(formInput);
+		}
+	}, [formInput]);
+
+	useEffect(() => {
+		getEntries();
+	}, []);
+
 	return (
-		<Form ref={formRef}>
+		<Form onSubmit={handleSubmit((data) => setFormInput(data))} ref={formRef}>
 			<SliderWrapper>
 				<label htmlFor='financial'>Financial</label>
-				<InputSlider value={financial} min={0} max={5} onChange={handleFinChange} />
+				<InputSlider {...register('financial')} value={financial} min={0} max={5} onChange={handleFinChange} />
 				<label htmlFor='fitness'>Fitness</label>
 				<InputSlider value={fitness} min={0} max={5} onChange={handleFitChange} />
 				<label htmlFor='dietary'>Dietary</label>
@@ -123,12 +157,16 @@ export default function SecuritiesForm() {
 				<InputSlider value={social} min={0} max={5} onChange={handleSocChange} />
 				<label htmlFor='professional'>Professional</label>
 				<InputSlider value={professional} min={0} max={5} onChange={handleProfChange} />
+				<label htmlFor='fileUpload'>File Upload</label>
+				<input type='file' {...register('file', { required: { value: true, message: 'all fields are required' } })} />
+				{errors.file && errors.file.type === 'required' && <span>file is required</span>}
 			</SliderWrapper>
+
 			<ButtonWrapper>
 				<Button onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleResetForm(event)}>
 					<IoCloseCircleOutline size={'32px'} />
 				</Button>
-				<Button onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleSaveEntry(event)}>
+				<Button type='submit'>
 					<IoSendOutline size={'32px'} />
 				</Button>
 			</ButtonWrapper>

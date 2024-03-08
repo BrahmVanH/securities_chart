@@ -1,4 +1,4 @@
-import { Entry } from '../__generated__/graphql';
+import { IEntry } from '../types';
 
 const formatDate = (date: string) => {
 	const d = new Date(date);
@@ -8,14 +8,14 @@ const formatDate = (date: string) => {
 	return `${month}/${day}/${year}`;
 };
 
-export const formatAllDates = (entries: Entry[]) => {
+export const formatAllDates = (entries: IEntry[]) => {
 	return entries.map((entry) => {
 		const formattedDate = formatDate(entry.date);
 		return { ...entry, formattedDate: formattedDate };
 	});
 };
 
-export const getObjValuesAverage = (ratings: Entry) => {
+export const getObjValuesAverage = (ratings: IEntry) => {
 	const total = Object.values(ratings).reduce((acc, curr) => {
 		return acc + curr;
 	}, 0);

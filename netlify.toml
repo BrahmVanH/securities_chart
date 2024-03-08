@@ -1,10 +1,13 @@
 [dev]
   publish = "client/dist"
 
+[build]
+  command = "npm run build"
+  publish = "client/dist"
 
 
 [functions]
-  directory = "server/lambda"
-  included_files = ["graphql.ts"]
+  directory = "functions/netlify/functions"
+  included_files = ["actions/index.ts"]
 
 
