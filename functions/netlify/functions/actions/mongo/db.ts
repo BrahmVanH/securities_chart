@@ -1,9 +1,13 @@
 import { connect, set } from 'mongoose';
+import dotenv from 'dotenv';
 
 const connectToDb = async () => {
-	const MONGO_URI = process.env.MONGO_URI ?? 'mongodb://127.0.0.1:27017/securitiesTracker';
-
+	dotenv.config();
 	try {
+		const MONGO_URI = process.env.MONGO_URI ?? '';
+		if (!MONGO_URI) {
+			throw new Error('MONGO_URI not found');
+		}
 		set('strictQuery', true);
 		await connect(MONGO_URI).then(() => console.log('Connected to MongoDB'));
 	} catch (error) {
@@ -11,6 +15,5 @@ const connectToDb = async () => {
 		throw new Error('Error connecting to MongoDB');
 	}
 };
-
 
 export default connectToDb;

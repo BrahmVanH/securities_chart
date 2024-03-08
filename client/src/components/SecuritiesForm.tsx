@@ -55,6 +55,7 @@ export default function SecuritiesForm() {
 
 	const [financial, setFinancial] = useState<number>(0);
 	const [fitness, setFitness] = useState<number>(0);
+	const [mental, setMental] = useState<number>(0);
 	const [dietary, setDietary] = useState<number>(0);
 	const [social, setSocial] = useState<number>(0);
 	const [professional, setProfessional] = useState<number>(0);
@@ -85,38 +86,19 @@ export default function SecuritiesForm() {
 		setProfessional(newValue as number);
 	};
 
-	const handleResetForm = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	const handleMentalChange = (event: Event, newValue: number | number[]) => {
 		event.preventDefault();
-		setFinancial(0);
-		setFitness(0);
-		setDietary(0);
-		setSocial(0);
-		setProfessional(0);
+		setMental(newValue as number);
 	};
 
-	// const handleSaveEntry = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-	// 	event.preventDefault();
-	// 	try {
-	// 		if (financial && fitness && dietary && social && professional) {
-	// 			const { data } = await saveEntry({ variables: { financial, fitness, dietary, social, professional } });
-	// 			if (data) console.log('data: ', data);
-
-	// 			if (!data) {
-	// 				throw new Error('Error saving entry');
-	// 			}
-	// 		} else {
-	// 			throw new Error('One or more fields are missing');
-	// 		}
-	// 		formRef.current?.reset();
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 		throw new Error('Error saving entry');
-	// 	}
-	// };
+	const handleResetForm = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		event.preventDefault();
+		formRef.current?.reset();
+	};
 
 	const handleSendForm = async (formInput: FieldValues) => {
 		try {
-			if (!formInput.file || !formInput.financial) {
+			if (!formInput.file || !formInput.financial || !formInput.fitness || !formInput.dietary || !formInput.social || !formInput.professional) {
 				throw new Error('file and financial fields are required');
 			}
 
@@ -149,14 +131,23 @@ export default function SecuritiesForm() {
 			<SliderWrapper>
 				<label htmlFor='financial'>Financial</label>
 				<InputSlider {...register('financial')} value={financial} min={0} max={5} onChange={handleFinChange} />
+				{errors.financial && errors.financial.type === 'required' && <span>financial is required</span>}
+
 				<label htmlFor='fitness'>Fitness</label>
-				<InputSlider value={fitness} min={0} max={5} onChange={handleFitChange} />
+				<InputSlider {...register('fitness')} value={fitness} min={0} max={5} onChange={handleFitChange} />
+				{errors.fitness && errors.fitness.type === 'required' && <span>fitness is required</span>}
+				<label htmlFor='mental'>Mental</label>
+				<InputSlider {...register('mental')} value={mental} min={0} max={5} onChange={handleMentalChange} />
+				{errors.mental && errors.mental.type === 'required' && <span>mental is required</span>}
 				<label htmlFor='dietary'>Dietary</label>
-				<InputSlider value={dietary} min={0} max={5} onChange={handleDietChange} />
+				<InputSlider {...register('dietary')} value={dietary} min={0} max={5} onChange={handleDietChange} />
+				{errors.dietary && errors.dietary.type === 'required' && <span>dietary is required</span>}
 				<label htmlFor='social'>Social</label>
-				<InputSlider value={social} min={0} max={5} onChange={handleSocChange} />
+				<InputSlider {...register('social')} value={social} min={0} max={5} onChange={handleSocChange} />
+				{errors.social && errors.social.type === 'required' && <span>social is required</span>}
 				<label htmlFor='professional'>Professional</label>
-				<InputSlider value={professional} min={0} max={5} onChange={handleProfChange} />
+				<InputSlider {...register('professional')} value={professional} min={0} max={5} onChange={handleProfChange} />
+				{errors.professional && errors.professional.type === 'required' && <span>professional is required</span>}
 				<label htmlFor='fileUpload'>File Upload</label>
 				<input type='file' {...register('file', { required: { value: true, message: 'all fields are required' } })} />
 				{errors.file && errors.file.type === 'required' && <span>file is required</span>}

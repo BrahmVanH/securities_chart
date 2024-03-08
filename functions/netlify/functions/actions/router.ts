@@ -29,6 +29,7 @@ const uploadFile = async (req: Request, res: Response, data: IEntry) => {
 		}
 		const actionResult = await MongooseModelActions.create({ securitiesRating: data.securitiesRating, text: data.text ?? 'no text' });
 		if (actionResult) {
+			console.log('actionResult', actionResult);
 			return actionResult;
 		}
 	} catch (error) {
@@ -126,9 +127,10 @@ router.post('/entry', upload.single('file'), async (req, res) => {
 		if (!fileData || !type || type !== 'application/octet-stream') {
 			console.log('no fileData or type');
 			res.status(400).json({ error: 'Bad Request' });
-		} else {
-			const data = { text: fileData, securitiesRating };
-			const response = await uploadFile(req, res, data);
+		}
+		const data = { text: fileData, securitiesRating };
+		const response = await uploadFile(req, res, data);
+		if (response) {
 			res.status(200).json(response);
 		}
 	} catch (error) {
