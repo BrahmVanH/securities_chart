@@ -7,7 +7,6 @@ dotenv.config();
 
 const app = express();
 
-
 interface IRequest extends Request {
 	headers: {
 		host?: string;
@@ -17,12 +16,11 @@ interface IRequest extends Request {
 const getAllowedOrigins = (req: IRequest, res: Response, next: NextFunction) => {
 	const allowedOrigins = [
 		'localhost:8888',
-		'https://markdown-handler.netlify.app',
-		'markdown-handler.netlify.app',
-		'main--markdown-handler.netlify.app',
-		'https://main--markdown-handler.netlify.app/',
-		'https://main--markdown-handler.netlify.app',
-
+		'https://weekly-journal.netlify.app',
+		'weekly-journal.netlify.app',
+		'main--weekly-journal.netlify.app',
+		'https://main--weekly-journal.netlify.app/',
+		'https://weekly-journal.netlify.app',
 	];
 	const host = req.headers.host ?? '';
 	console.log('host', host);
