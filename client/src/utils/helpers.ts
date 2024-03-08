@@ -1,4 +1,4 @@
-import { IEntry } from '../types';
+import { IEntry, ISecuritiesRating } from '../types';
 
 const formatDate = (date: string) => {
 	const d = new Date(date);
@@ -10,12 +10,15 @@ const formatDate = (date: string) => {
 
 export const formatAllDates = (entries: IEntry[]) => {
 	return entries.map((entry) => {
+		if (!entry.date) {
+			return entry;
+		}
 		const formattedDate = formatDate(entry.date);
 		return { ...entry, formattedDate: formattedDate };
 	});
 };
 
-export const getObjValuesAverage = (ratings: IEntry) => {
+export const getObjValuesAverage = (ratings: ISecuritiesRating) => {
 	const total = Object.values(ratings).reduce((acc, curr) => {
 		return acc + curr;
 	}, 0);

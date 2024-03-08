@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { NavProps } from '../types';
+import { INavProps } from '../types';
 import { Button } from './StyledComponents';
 
 import { IoBarChartOutline, IoAddCircleOutline } from 'react-icons/io5';
+import React from 'react';
 
 const NavpadWrapper = styled.div`
 	width: 100%;
@@ -26,7 +27,7 @@ const Navpad = styled.nav(({ theme }) => ({
 	alignItems: 'center',
 }));
 
-const Nav = (props: Readonly<NavProps>) => {
+const Nav: React.FC<INavProps> = (props: Readonly<INavProps>) => {
 	const handleShowHistory = props.handleShowHistory;
 
 	return (

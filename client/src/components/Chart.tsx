@@ -1,8 +1,9 @@
 // import React from 'react';
 import { VictoryChart, VictoryBar, VictoryPolarAxis, VictoryTheme } from 'victory';
 import { IChartProps } from '../types';
+import React from 'react';
 
-const Chart = (props: Readonly<IChartProps>) => {
+const Chart: React.FC<IChartProps> = (props: Readonly<IChartProps>) => {
 	const data = props?.data;
 
 	return (
@@ -15,11 +16,11 @@ const Chart = (props: Readonly<IChartProps>) => {
 			<VictoryBar
 				style={{ data: { fill: 0o0, width: 25 } }}
 				data={[
-					{ x: 'financial', y: data.financial },
-					{ x: 'fitness', y: data.fitness },
-					{ x: 'dietary', y: data.dietary },
-					{ x: 'social', y: data.social },
-					{ x: 'professional', y: data.professional },
+					{ x: 'financial', y: data.securitiesRating?.financial },
+					{ x: 'fitness', y: data.securitiesRating?.fitness },
+					{ x: 'dietary', y: data.securitiesRating?.dietary },
+					{ x: 'social', y: data.securitiesRating?.social },
+					{ x: 'professional', y: data.securitiesRating?.professional },
 				]}
 			/>
 		</VictoryChart>
