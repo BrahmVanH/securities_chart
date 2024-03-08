@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Slider } from '@mui/material';
 import styled from 'styled-components';
 
-import { Button } from './StyledComponents';
+import { Button, Label } from './StyledComponents';
 import { useForm, FieldValues } from 'react-hook-form';
 import { getEntries, sendForm } from '../utils/API';
 
@@ -11,8 +11,8 @@ import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 const Form = styled.form`
 	margin-top: 10%;
 	width: 80%;
-	height: 50%;
-	padding: 2rem;
+	height: min-content;
+	padding: 3rem 2rem;
 	border: 1px solid white;
 	border-radius: 65px;
 	display: flex;
@@ -46,12 +46,20 @@ const ButtonWrapper = styled.div`
 	width: 100%;
 `;
 
+const HiddenInput = styled.input`
+	display: none;
+`;
+
 export default function SecuritiesForm() {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FieldValues>();
+
+	const { ref, ...fields } = register('file', { required: { value: true, message: 'all fields are required' } });
+
+	const hiddenInputRef = useRef<HTMLInputElement | null>(null);
 
 	const [financial, setFinancial] = useState<number>(0);
 	const [fitness, setFitness] = useState<number>(0);
@@ -96,6 +104,11 @@ export default function SecuritiesForm() {
 		formRef.current?.reset();
 	};
 
+	const triggerHiddenInput = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		event.preventDefault();
+		hiddenInputRef.current?.click();
+	};
+
 	const handleSendForm = async (formInput: FieldValues) => {
 		try {
 			if (!formInput.file || !formInput.financial || !formInput.fitness || !formInput.dietary || !formInput.social || !formInput.professional) {
@@ -129,28 +142,48 @@ export default function SecuritiesForm() {
 	return (
 		<Form onSubmit={handleSubmit((data) => setFormInput(data))} ref={formRef}>
 			<SliderWrapper>
-				<label htmlFor='financial'>Financial</label>
+				<Label $fontSize={'1.25rem'} htmlFor='financial'>
+					Financial
+				</Label>
 				<InputSlider {...register('financial')} value={financial} min={0} max={5} onChange={handleFinChange} />
 				{errors.financial && errors.financial.type === 'required' && <span>financial is required</span>}
 
-				<label htmlFor='fitness'>Fitness</label>
+				<Label $fontSize={'1.25rem'} htmlFor='fitness'>
+					Fitness
+				</Label>
 				<InputSlider {...register('fitness')} value={fitness} min={0} max={5} onChange={handleFitChange} />
 				{errors.fitness && errors.fitness.type === 'required' && <span>fitness is required</span>}
-				<label htmlFor='mental'>Mental</label>
+
+				<Label $fontSize={'1.25rem'} htmlFor='mental'>
+					Mental
+				</Label>
 				<InputSlider {...register('mental')} value={mental} min={0} max={5} onChange={handleMentalChange} />
 				{errors.mental && errors.mental.type === 'required' && <span>mental is required</span>}
-				<label htmlFor='dietary'>Dietary</label>
+
+				<Label $fontSize={'1.25rem'} htmlFor='dietary'>
+					Dietary
+				</Label>
 				<InputSlider {...register('dietary')} value={dietary} min={0} max={5} onChange={handleDietChange} />
 				{errors.dietary && errors.dietary.type === 'required' && <span>dietary is required</span>}
-				<label htmlFor='social'>Social</label>
+
+				<Label $fontSize={'1.25rem'} htmlFor='social'>
+					Social
+				</Label>
 				<InputSlider {...register('social')} value={social} min={0} max={5} onChange={handleSocChange} />
 				{errors.social && errors.social.type === 'required' && <span>social is required</span>}
-				<label htmlFor='professional'>Professional</label>
+
+				<Label $fontSize={'1.25rem'} htmlFor='professional'>
+					Professional
+				</Label>
 				<InputSlider {...register('professional')} value={professional} min={0} max={5} onChange={handleProfChange} />
 				{errors.professional && errors.professional.type === 'required' && <span>professional is required</span>}
-				<label htmlFor='fileUpload'>File Upload</label>
-				<input type='file' {...register('file', { required: { value: true, message: 'all fields are required' } })} />
+
+				<HiddenInput ref={hiddenInputRef} type='file' {...fields} />
 				{errors.file && errors.file.type === 'required' && <span>file is required</span>}
+
+				<Button type='submit' $fontSize={'1.25rem'} $margin={'2rem 0rem 0rem 0rem'} $width={'75%'} $useBorder={true} onClick={triggerHiddenInput}>
+					Upload Markdown
+				</Button>
 			</SliderWrapper>
 
 			<ButtonWrapper>

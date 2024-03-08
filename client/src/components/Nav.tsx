@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { INavProps } from '../types';
+import { INavFCProps } from '../types';
 import { Button } from './StyledComponents';
 
 import { IoBarChartOutline, IoAddCircleOutline } from 'react-icons/io5';
@@ -27,7 +27,7 @@ const Navpad = styled.nav(({ theme }) => ({
 	alignItems: 'center',
 }));
 
-const Nav: React.FC<INavProps> = (props: Readonly<INavProps>) => {
+const Nav: React.FC<INavFCProps> = (props: Readonly<INavFCProps>) => {
 	const handleShowHistory = props.handleShowHistory;
 
 	return (

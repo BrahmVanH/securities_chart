@@ -15,22 +15,33 @@ export interface IEntry {
 
 export type FormattedEntry = IEntry & { formattedDate?: string };
 
-export interface IChartProps {
+export interface IChartFCProps {
 	data: FormattedEntry;
 }
 
-export type INavProps = {
+export type INavFCProps = {
 	handleShowHistory: Function;
 };
 
-export interface ButtonProps {
+export interface IButtonSCProps {
 	$margin?: string;
+	$width?: string;
+	$useBorder?: boolean;
+	$fontSize?: string;
 }
 
-export interface IEntryCardProps {
+export interface IInputSCProps {
+	$width?: string;
+}
+
+export interface ILabelSCProps {
+	$fontSize?: string;
+}
+
+export interface IEntryCardFCProps {
 	entry?: FormattedEntry;
 }
 
-export interface IStarRatubgRatingProps {
+export interface IStarRatingFCRatingProps {
 	rating: number;
 }

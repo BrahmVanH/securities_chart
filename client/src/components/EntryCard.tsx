@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FiBarChart2 } from 'react-icons/fi';
 import Chart from './Chart';
-import { FormattedEntry, IEntryCardProps, ISecuritiesRating } from '../types';
+import { FormattedEntry, IEntryCardFCProps, ISecuritiesRating } from '../types';
 import { getObjValuesAverage } from '../utils/helpers';
 import StarRating from './StarRating';
 
@@ -26,7 +26,7 @@ const Preview = styled.div`
 	justify-content: space-between;
 	align-items: center;
 `;
-const EntryCard: React.FC<IEntryCardProps> = (props: IEntryCardProps) => {
+const EntryCard: React.FC<IEntryCardFCProps> = (props: IEntryCardFCProps) => {
 	const entry: FormattedEntry | undefined = props?.entry;
 
 	const [openDetails, setOpenDetails] = useState<boolean>(false);
