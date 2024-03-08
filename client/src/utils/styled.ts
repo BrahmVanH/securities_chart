@@ -59,7 +59,8 @@ export const Form = styled.form`
 
 	@media (min-width: 768px) {
 		width: 30%;
-		height: 50%;
+    margin-top: 7.5%;
+		height: 60%;
 	}
 `;
 
