@@ -1,41 +1,20 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { useCallback, useEffect, useState } from 'react';
 import { FiBarChart2 } from 'react-icons/fi';
 import Chart from './Chart';
 import { FormattedEntry, IEntryCardFCProps, ISecuritiesRating } from '../types';
 import { getObjValuesAverage } from '../utils/helpers';
 import StarRating from './StarRating';
+import { CardWrapper, Preview } from '../utils/styled';
 
-const CardWrapper = styled.div(({ theme }) => ({
-	width: '90%',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'space-between',
-	alignItems: 'center',
-	backgroundColor: 'transparent',
-	padding: '0.5rem',
-	borderBottom: `1px solid ${theme.stroke}`,
-	borderRight: `1px solid ${theme.stroke}`,
-	borderRadius: '10px',
-}));
-
-const Preview = styled.div`
-	width: 95%;
-	display: flex;
-	flex-direction: row !important;
-	justify-content: space-between;
-	align-items: center;
-`;
 const EntryCard: React.FC<IEntryCardFCProps> = (props: IEntryCardFCProps) => {
 	const entry: FormattedEntry | undefined = props?.entry;
 
 	const [openDetails, setOpenDetails] = useState<boolean>(false);
 	const [averageRating, setAverageRating] = useState<number>(1);
 
-	const handleShowDetails = () => {
+	const handleShowDetails = useCallback(() => {
 		setOpenDetails(!openDetails);
-	};
-
+	}, []);
 
 	useEffect(() => {
 		if (entry) {

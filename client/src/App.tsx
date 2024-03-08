@@ -3,19 +3,12 @@ import { useState } from 'react';
 
 import SecuritiesForm from './components/SecuritiesForm';
 import History from './components/History';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import Nav from './components/Nav';
+import { AppWrapper } from './utils/styled';
 
 
-const AppWrapper = styled.div`
-	width: 100vw;
-	height: 100vh;
-	background-color: transparent;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-`;
+
 
 function App() {
 	const [showHistory, setShowHistory] = useState<boolean>(false);

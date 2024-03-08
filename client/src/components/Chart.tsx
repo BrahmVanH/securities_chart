@@ -1,9 +1,8 @@
-// import React from 'react';
-import { VictoryChart, VictoryBar, VictoryPolarAxis, VictoryTheme } from 'victory';
-import { IChartProps } from '../types';
 import React from 'react';
+import { VictoryChart, VictoryBar, VictoryPolarAxis, VictoryTheme } from 'victory';
+import { IChartFCProps } from '../types';
 
-const Chart: React.FC<IChartProps> = (props: Readonly<IChartProps>) => {
+const Chart: React.FC<IChartFCProps> = (props: Readonly<IChartFCProps>) => {
 	const data = props?.data;
 
 	return (

@@ -42,6 +42,6 @@ export interface IEntryCardFCProps {
 	entry?: FormattedEntry;
 }
 
-export interface IStarRatingFCRatingProps {
+export interface IStarRatingFCProps {
 	rating: number;
 }

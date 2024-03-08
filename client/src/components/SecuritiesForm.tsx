@@ -1,54 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { Slider } from '@mui/material';
-import styled from 'styled-components';
 
-import { Button, Label } from './StyledComponents';
+import { Button, Label } from '../utils/styled';
 import { useForm, FieldValues } from 'react-hook-form';
 import { getEntries, sendForm } from '../utils/API';
-
+import { Form, SliderWrapper, InputSlider, ButtonWrapper, HiddenInput } from '../utils/styled';
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 
-const Form = styled.form`
-	margin-top: 10%;
-	width: 80%;
-	height: min-content;
-	padding: 3rem 2rem;
-	border: 1px solid white;
-	border-radius: 65px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 
-	@media (min-width: 768px) {
-		width: 30%;
-		height: 50%;
-	}
-`;
-
-const SliderWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	width: 80%;
-`;
-
-const InputSlider = styled(Slider)(({ theme }) => ({
-	color: `${theme.stroke} !important`,
-}));
-
-const ButtonWrapper = styled.div`
-	margin-top: 2rem;
-	display: flex;
-	justify-content: space-around;
-	align-items: flex-end;
-	width: 100%;
-`;
-
-const HiddenInput = styled.input`
-	display: none;
-`;
 
 export default function SecuritiesForm() {
 	const {

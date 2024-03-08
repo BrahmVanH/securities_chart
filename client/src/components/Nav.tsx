@@ -1,31 +1,12 @@
-import styled from 'styled-components';
 import { INavFCProps } from '../types';
-import { Button } from './StyledComponents';
+import { Button, NavpadWrapper, Navpad } from '../utils/styled';
 
 import { IoBarChartOutline, IoAddCircleOutline } from 'react-icons/io5';
 import React from 'react';
 
-const NavpadWrapper = styled.div`
-	width: 100%;
-	background-color: transparent;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
 
-const Navpad = styled.nav(({ theme }) => ({
-	position: 'fixed',
-	bottom: 0,
-	width: '75%',
-	height: '10%',
-	backgroundColor: theme.sanMarino,
-	border: `1px solid ${theme.stroke}`,
-	borderTopLeftRadius: '45px',
-	borderTopRightRadius: '45px',
-	display: 'flex',
-	justifyContent: 'space-evenly',
-	alignItems: 'center',
-}));
+
+
 
 const Nav: React.FC<INavFCProps> = (props: Readonly<INavFCProps>) => {
 	const handleShowHistory = props.handleShowHistory;
