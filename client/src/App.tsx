@@ -1,5 +1,5 @@
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
-	//  ApolloLink,
+//  ApolloLink,
 // import { onError } from '@apollo/client/link/error';
 
 import { useState } from 'react';
@@ -28,6 +28,8 @@ const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	link: new HttpLink({ uri }),
 });
+
+console.log('uri: ', uri);
 
 const AppWrapper = styled.div`
 	width: 100vw;

@@ -6,7 +6,7 @@
 	"scripts": {
 		"watch": "nodemon",
 		"start": "nodemon",
-		"build:lambda": "npm run bundle && tsc -p lambda/tsconfig.json",
+		"build": "npm run bundle && tsc -p lambda/tsconfig.json",
 		"codegen": "graphql-codegen --config codegen.yml",
 		"bundle": "ncp ./src ./lambda/bundle",
 		"test": "echo \"Error: no test specified\" && exit 1"

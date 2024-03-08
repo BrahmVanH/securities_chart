@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"jsx": "react",
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"module": "commonjs",
+		"target": "es6",
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "node",
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noFallthroughCasesInSwitch": true
+	},
+	"include": ["./*.ts", "./**/*.ts", "./**/*.js", "netlify/functions/actions/router.ts", "netlify/functions/actions/index.ts", "netlify/functions/actions/EntryModel.ts", "tests/index.test.mts"]
+}

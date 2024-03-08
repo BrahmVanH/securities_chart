@@ -13,7 +13,7 @@ const uri: string = process.env.MONGODB_URI ?? 'mongodb://127.0.0.1:27017/securi
 let cachedDb: Connection;
 
 const connectToDb = async () => {
-	console.log('connectToDb starting');
+	console.log('connectToDb');
 	try {
 		if (cachedDb) return;
 
@@ -25,12 +25,14 @@ const connectToDb = async () => {
 	}
 };
 
-const createLambdaServer = () =>
-	new ApolloServerLambda({
+const createLambdaServer = () => {
+	console.log('createLambdaServer');
+
+	return new ApolloServerLambda({
 		typeDefs,
 		resolvers,
 		introspection: true,
-		context: async () => {
+		context: async ({ event, context }) => {
 			await connectToDb();
 
 			return {
@@ -40,6 +42,7 @@ const createLambdaServer = () =>
 			};
 		},
 	});
+};
 
 const createLocalServer = () =>
 	new ApolloServer({
