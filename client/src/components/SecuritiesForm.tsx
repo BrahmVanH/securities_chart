@@ -1,12 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 import { Button, Label } from '../utils/styled';
 import { useForm, FieldValues } from 'react-hook-form';
 import { getEntries, sendForm } from '../utils/API';
-import { Form, SliderWrapper, InputSlider, ButtonWrapper, HiddenInput } from '../utils/styled';
+import { Form, SliderWrapper, InputSlider, ButtonWrapper } from '../utils/styled';
+// , HiddenInput 
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
-
-
 
 export default function SecuritiesForm() {
 	const {
@@ -57,10 +56,17 @@ export default function SecuritiesForm() {
 		setMental(newValue as number);
 	};
 
-	const handleResetForm = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	const handleResetForm =  useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
 		formRef.current?.reset();
-	};
+		setFormInput(null);
+		setFinancial(0);
+		setFitness(0);
+		setMental(0);
+		setDietary(0);
+		setSocial(0);
+		setProfessional(0);
+	}, []);
 
 	const triggerHiddenInput = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
@@ -136,7 +142,8 @@ export default function SecuritiesForm() {
 				<InputSlider {...register('professional')} value={professional} min={0} max={5} onChange={handleProfChange} />
 				{errors.professional && errors.professional.type === 'required' && <span>professional is required</span>}
 
-				<HiddenInput ref={hiddenInputRef} type='file' {...fields} />
+				{/* <HiddenInput ref={hiddenInputRef} type='file' {...fields} /> */}
+				<input type='file' {...register('file', { required: { value: true, message: 'all fields are required' } })} />
 				{errors.file && errors.file.type === 'required' && <span>file is required</span>}
 
 				<Button type='submit' $fontSize={'1.25rem'} $margin={'2rem 0rem 0rem 0rem'} $width={'75%'} $useBorder={true} onClick={triggerHiddenInput}>
