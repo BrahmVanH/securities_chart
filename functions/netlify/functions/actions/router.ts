@@ -75,6 +75,13 @@ export const convertFileToBlob = (file: File) => {
 	});
 };
 
+const validateType = (type: string) => {
+	if (type !== 'text/markdown' && type !== 'application/octet-stream') {
+		return false;
+	}
+	return true;
+};
+
 // router.post('/entryText', upload.single('file'), async (req, res) => {
 // 	try {
 // 		if (!req.file) {
@@ -123,8 +130,9 @@ router.post('/entry', upload.single('file'), async (req, res) => {
 		const fileData = req.file.buffer.toString('utf8');
 		const type = req.file.mimetype;
 		console.log('fileData', fileData);
+		const typeValid: boolean = validateType(type);
 
-		if (!fileData || !type || type !== 'application/octet-stream') {
+		if (!fileData || !type || !typeValid) {
 			console.log('no fileData or type');
 			res.status(400).json({ error: 'Bad Request' });
 		}
