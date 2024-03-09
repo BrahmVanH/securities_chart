@@ -14,9 +14,9 @@ export default function SecuritiesForm() {
 		formState: { errors },
 	} = useForm<FieldValues>();
 
-	const { ref, ...fields } = register('file', { required: { value: true, message: 'all fields are required' } });
+	// const { ref, ...fields } = register('file', { required: { value: true, message: 'all fields are required' } });
 
-	const hiddenInputRef = useRef<HTMLInputElement | null>(null);
+	// const hiddenInputRef = useRef<HTMLInputElement | null>(null);
 
 	const [financial, setFinancial] = useState<number>(0);
 	const [fitness, setFitness] = useState<number>(0);
@@ -68,10 +68,10 @@ export default function SecuritiesForm() {
 		setProfessional(0);
 	}, []);
 
-	const triggerHiddenInput = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		event.preventDefault();
-		hiddenInputRef.current?.click();
-	};
+	// const triggerHiddenInput = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	// 	event.preventDefault();
+	// 	hiddenInputRef.current?.click();
+	// };
 
 	const handleSendForm = async (formInput: FieldValues) => {
 		try {
@@ -146,9 +146,9 @@ export default function SecuritiesForm() {
 				<input type='file' {...register('file', { required: { value: true, message: 'all fields are required' } })} />
 				{errors.file && errors.file.type === 'required' && <span>file is required</span>}
 
-				<Button type='submit' $fontSize={'1.25rem'} $margin={'2rem 0rem 0rem 0rem'} $width={'75%'} $useBorder={true} onClick={triggerHiddenInput}>
+				{/* <Button type='submit' $fontSize={'1.25rem'} $margin={'2rem 0rem 0rem 0rem'} $width={'75%'} $useBorder={true} onClick={triggerHiddenInput}>
 					Upload Markdown
-				</Button>
+				</Button> */}
 			</SliderWrapper>
 
 			<ButtonWrapper>
