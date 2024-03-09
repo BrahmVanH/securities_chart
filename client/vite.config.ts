@@ -12,9 +12,9 @@ const manifestForPlugIn: VitePWAOptions = {
 	registerType: 'prompt',
 	includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
 	manifest: {
-		name: 'React-vite-app',
-		short_name: 'react-vite-app',
-		description: 'I am a simple vite app',
+		name: 'journal-logger-app',
+		short_name: 'journal-logger-app',
+		description: 'App that your daily journal entries, uploaded as markdown, and accepts ratings for various personal securities',
 		icons: [
 			{
 				src: '/collie-stencil-image.svg',
