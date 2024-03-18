@@ -37,17 +37,17 @@
 
 export const getEntries = async () => {
 	try {
-		// const response = await fetch('/.netlify/functions/actions/entries');
-		// if (!response.ok) {
-		// 	throw new Error('error in fetching entries');
-		// }
+		const response = await fetch('/.netlify/functions/actions/entries');
+		if (!response.ok) {
+			throw new Error('error in fetching entries');
+		}
 
-		// const data = await response.json();
-		// if (!data) {
-		// 	throw new Error('no data');
-		// }
-		// console.log('data', data);
-		// return data;
+		const data = await response.json();
+		if (!data) {
+			throw new Error('no data');
+		}
+		console.log('data', data);
+		return data;
 		return { ['data']: ['entry1', 'entry2'] };
 	} catch (error) {
 		console.error('error', error);
