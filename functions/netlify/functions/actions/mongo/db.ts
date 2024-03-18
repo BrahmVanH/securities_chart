@@ -1,10 +1,8 @@
 import { connect, set } from 'mongoose';
-import dotenv from 'dotenv';
 
 const connectToDb = async () => {
-	dotenv.config();
 	try {
-		const MONGO_URI = process.env.MONGO_URI ?? '';
+		const MONGO_URI = process.env.NODE_ENV === 'production' ? process.env.MONGO_URI : process.env.MONGO_URI_DEV;
 		if (!MONGO_URI) {
 			throw new Error('MONGO_URI not found');
 		}
