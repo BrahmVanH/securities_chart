@@ -3,7 +3,6 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button, Label } from '../utils/styled';
 import { useForm, FieldValues } from 'react-hook-form';
 import { getEntries, sendForm } from '../utils/API';
-import { convertMdFileToString } from '../utils/helpers';
 import { Form, SliderWrapper, InputSlider, ButtonWrapper } from '../utils/styled';
 // , HiddenInput
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
@@ -80,10 +79,8 @@ export default function SecuritiesForm() {
 				throw new Error('file and financial fields are required');
 			}
 
-			const mdString = await convertMdFileToString(formInput.file[0]);
-
 			const response = await sendForm(formInput);
-			if (!response.ok) {
+			if (!response) {
 				throw new Error('error in sending form');
 			} else {
 				console.log('response', response);

@@ -1,6 +1,7 @@
-import { gql } from '../__generated__/gql';
+// import { gql } from '../__generated__/gql';
+import {gql } from '@apollo/client';
 
-export const ADD_ENTRY = gql(/* GraphQL */ `
+export const CREATE_ENTRY = gql(/* GraphQL */ `
 	mutation AddEntry($date: String!, $text: String!, $securitiesRating: SecuritiesRatingInput!) {
 		addEntry(date: $date, text: $text, securitiesRating: $securitiesRating) {
 			id
