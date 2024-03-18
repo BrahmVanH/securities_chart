@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const manifestForPlugIn: VitePWAOptions = {
 	includeManifestIcons: true,
@@ -53,4 +55,13 @@ const manifestForPlugIn: VitePWAOptions = {
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react(), VitePWA(manifestForPlugIn)],
+	server: {
+		proxy: {
+			'/graphql': {
+				target: process.env.LAMBDA_GRAPHQL_URI,
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/graphql/, ''),
+			},
+		},
+	},
 });

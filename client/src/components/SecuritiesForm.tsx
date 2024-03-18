@@ -2,7 +2,10 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 
 import { Button, Label } from '../utils/styled';
 import { useForm, FieldValues } from 'react-hook-form';
-import { getEntries, sendForm } from '../utils/API';
+import { getEntries } from '../utils/API';
+import { CREATE_ENTRY } from '../utils/mutations';
+import { convertMdFileToString } from '../utils/helpers';
+import { useMutation } from '@apollo/client';
 import { Form, SliderWrapper, InputSlider, ButtonWrapper } from '../utils/styled';
 // , HiddenInput
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
@@ -73,18 +76,36 @@ export default function SecuritiesForm() {
 	// 	hiddenInputRef.current?.click();
 	// };
 
+	const [createEntry] = useMutation(CREATE_ENTRY);
+	
 	const handleSendForm = async (formInput: FieldValues) => {
 		try {
 			if (!formInput.file || !formInput.financial || !formInput.fitness || !formInput.dietary || !formInput.social || !formInput.professional) {
 				throw new Error('file and financial fields are required');
 			}
 
-			const response = await sendForm(formInput);
-			if (!response) {
-				throw new Error('error in sending form');
-			} else {
-				console.log('response', response);
-			}
+		const mdString = await convertMdFileToString(formInput.file[0]);
+		const securitiesRating = {
+			dietary: formInput.dietary,
+			financial: formInput.financial,
+			fitness: formInput.fitness,
+			mental: formInput.mental,
+			professional: formInput.professional,
+			social: formInput.social,
+		};
+		console.log('mdString', mdString);
+		console.log('formInput', formInput);
+		const newEntry = await createEntry({
+			variables: {
+				date: new Date().toISOString(),
+				text: mdString,
+				securitiesRating,
+			},
+		});
+
+		if (newEntry) {
+			console.log('newEntry', newEntry);
+		}
 
 			formRef.current?.reset();
 		} catch (error) {
@@ -99,9 +120,6 @@ export default function SecuritiesForm() {
 		}
 	}, [formInput]);
 
-	useEffect(() => {
-		getEntries();
-	}, []);
 
 	return (
 		<Form onSubmit={handleSubmit((data) => setFormInput(data))} ref={formRef}>

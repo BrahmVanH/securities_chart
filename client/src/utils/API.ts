@@ -37,50 +37,51 @@ import { Entry } from '../__generated__/graphql';
 
 export const getEntries = async () => {
 	try {
-		const response = await fetch('/.netlify/functions/actions/entries');
-		if (!response.ok) {
-			throw new Error('error in fetching entries');
-		}
+		// const response = await fetch('/.netlify/functions/actions/entries');
+		// if (!response.ok) {
+		// 	throw new Error('error in fetching entries');
+		// }
 
-		const data = await response.json();
-		if (!data) {
-			throw new Error('no data');
-		}
-		console.log('data', data);
-		return data;
+		// const data = await response.json();
+		// if (!data) {
+		// 	throw new Error('no data');
+		// }
+		// console.log('data', data);
+		// return data;
+		return { ['data']: ['entry1', 'entry2'] };
 	} catch (error) {
 		console.error('error', error);
 	}
 };
 
-export const sendForm = async (formInput: FieldValues) => {
-	try {
-		const [createEntry] = useMutation(CREATE_ENTRY);
-		const mdString = await convertMdFileToString(formInput.file[0]);
-		const securitiesRating = {
-			dietary: formInput.dietary,
-			financial: formInput.financial,
-			fitness: formInput.fitness,
-			mental: formInput.mental,
-			professional: formInput.professional,
-			social: formInput.social,
-		};
-		console.log('mdString', mdString);
-		console.log('formInput', formInput);
-		const newEntry = await createEntry({
-			variables: {
-				date: new Date().toISOString(),
-				text: mdString,
-				securitiesRating,
-			},
-		});
+// export const sendForm = async (formInput: FieldValues) => {
+// 	try {
+// 		const [createEntry] = useMutation(CREATE_ENTRY);
+// 		const mdString = await convertMdFileToString(formInput.file[0]);
+// 		const securitiesRating = {
+// 			dietary: formInput.dietary,
+// 			financial: formInput.financial,
+// 			fitness: formInput.fitness,
+// 			mental: formInput.mental,
+// 			professional: formInput.professional,
+// 			social: formInput.social,
+// 		};
+// 		console.log('mdString', mdString);
+// 		console.log('formInput', formInput);
+// 		const newEntry = await createEntry({
+// 			variables: {
+// 				date: new Date().toISOString(),
+// 				text: mdString,
+// 				securitiesRating,
+// 			},
+// 		});
 
-		if (newEntry) {
-			console.log('newEntry', newEntry);
-			return newEntry;
-		}
-	} catch (error) {
-		console.error('error', error);
-		throw new Error('error in sending form');
-	}
-};
+// 		if (newEntry) {
+// 			console.log('newEntry', newEntry);
+// 			return newEntry;
+// 		}
+// 	} catch (error) {
+// 		console.error('error', error);
+// 		throw new Error('error in sending form');
+// 	}
+// };
