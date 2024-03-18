@@ -3,8 +3,9 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button, Label } from '../utils/styled';
 import { useForm, FieldValues } from 'react-hook-form';
 import { getEntries, sendForm } from '../utils/API';
+import { convertMdFileToString } from '../utils/helpers';
 import { Form, SliderWrapper, InputSlider, ButtonWrapper } from '../utils/styled';
-// , HiddenInput 
+// , HiddenInput
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 
 export default function SecuritiesForm() {
@@ -56,7 +57,7 @@ export default function SecuritiesForm() {
 		setMental(newValue as number);
 	};
 
-	const handleResetForm =  useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	const handleResetForm = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
 		formRef.current?.reset();
 		setFormInput(null);
@@ -78,6 +79,8 @@ export default function SecuritiesForm() {
 			if (!formInput.file || !formInput.financial || !formInput.fitness || !formInput.dietary || !formInput.social || !formInput.professional) {
 				throw new Error('file and financial fields are required');
 			}
+
+			const mdString = await convertMdFileToString(formInput.file[0]);
 
 			const response = await sendForm(formInput);
 			if (!response.ok) {
