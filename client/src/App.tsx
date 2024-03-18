@@ -6,12 +6,12 @@ import { ThemeProvider } from 'styled-components';
 import Nav from './components/Nav';
 import { AppWrapper } from './utils/styled';
 
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 // TODO: move to .env in new apollo function
 
 const functionUri = '/graphql';
-const clent = new ApolloClient({
+const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	uri: functionUri,
 });
@@ -30,7 +30,7 @@ function App() {
 	};
 
 	return (
-		<ApolloProvider client={clent}>
+		<ApolloProvider client={client}>
 			<ThemeProvider theme={theme}>
 				<AppWrapper>
 					{!showHistory ? <SecuritiesForm /> : <History />}

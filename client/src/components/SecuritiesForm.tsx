@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 
 import { Button, Label } from '../utils/styled';
 import { useForm, FieldValues } from 'react-hook-form';
-import { getEntries } from '../utils/API';
 import { CREATE_ENTRY } from '../utils/mutations';
 import { convertMdFileToString } from '../utils/helpers';
 import { useMutation } from '@apollo/client';
@@ -77,7 +76,7 @@ export default function SecuritiesForm() {
 	// };
 
 	const [createEntry] = useMutation(CREATE_ENTRY);
-	
+
 	const handleSendForm = async (formInput: FieldValues) => {
 		try {
 			if (!formInput.file || !formInput.financial || !formInput.fitness || !formInput.dietary || !formInput.social || !formInput.professional) {
