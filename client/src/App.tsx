@@ -13,7 +13,7 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/c
 const functionUri = 'https://y89300t3va.execute-api.us-east-1.amazonaws.com/graphql';
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link: new HttpLink({ uri: functionUri }),
+	link: new HttpLink({ uri: functionUri, fetchOptions: { mode: 'no-cors' }),
 });
 
 function App() {
