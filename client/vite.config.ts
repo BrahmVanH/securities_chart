@@ -55,13 +55,4 @@ const manifestForPlugIn: VitePWAOptions = {
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react(), VitePWA(manifestForPlugIn)],
-	server: {
-		proxy: {
-			'/graphql': {
-				target: process.env.LAMBDA_GRAPHQL_URI,
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/graphql/, ''),
-			},
-		},
-	},
 });
