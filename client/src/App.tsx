@@ -6,14 +6,14 @@ import { ThemeProvider } from 'styled-components';
 import Nav from './components/Nav';
 import { AppWrapper } from './utils/styled';
 
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 
 // TODO: move to .env in new apollo function
 
 const functionUri = 'https://aa8xj0pbui.execute-api.us-east-1.amazonaws.com/';
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	uri: functionUri,
+	link: new HttpLink({ uri: functionUri }),
 });
 
 function App() {
