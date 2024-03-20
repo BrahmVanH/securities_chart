@@ -14,7 +14,7 @@ const functionUri = 'https://y89300t3va.execute-api.us-east-1.amazonaws.com';
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link: new HttpLink({ uri: functionUri, fetchOptions: { mode: 'cors' }, headers: { 'Access-Control-Allow-Origin': '*' } }),
+	link: new HttpLink({ uri: functionUri, fetchOptions: { mode: 'no-cors' }, headers: { 'Access-Control-Allow-Origin': '*' } }),
 });
 
 function App() {
