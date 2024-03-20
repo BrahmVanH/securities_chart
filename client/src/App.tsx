@@ -10,12 +10,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 // TODO: move to .env in new apollo function
 
-const functionUri = process.env.NODE_ENV === 'production' ? 'https://y89300t3va.execute-api.us-east-1.amazonaws.com' : 'http://localhost:3000';
+const functionUri = import.meta.env.PROD ? import.meta.env.VITE_FUNCTION_URI : import.meta.env.VITE_LOCALHOST;
 
-// const client = new ApolloClient({
-// 	cache: new InMemoryCache(),
-// 	link: new HttpLink({ uri: functionUri, fetchOptions: { mode: 'no-cors' }, headers: { 'Access-Control-Allow-Origin': '*' } }),
-// });
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	uri: functionUri,
