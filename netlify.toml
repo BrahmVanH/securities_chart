@@ -1,9 +1,10 @@
 [dev]
-  publish = "client/dist"
+  command = "npm run build"
+  publish = "dist"
 
 [build]
   command = "npm run build"
-  publish = "client/dist"
+  publish = "dist"
 
 
 
