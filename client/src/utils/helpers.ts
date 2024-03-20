@@ -19,6 +19,7 @@ export const formatAllDates = (entries: Entry[]) => {
 	});
 };
 
+
 export const getObjValuesAverage = (ratings: ISecuritiesRating) => {
 	const total = Object.values(ratings).reduce((acc, curr) => {
 		return acc + curr;
@@ -45,14 +46,12 @@ const validateType = (fileName: string) => {
 	if (!ext) {
 		return false;
 	}
-	console.log('ext', ext);
 	if (ext !== 'md') {
 		return false;
 	}
 	return true;
 };
 
-// TO-DO: Add function to convert file buffer to string
 export const convertMdFileToString = async (file: File) => {
 	try {
 		if (!file) {
@@ -65,9 +64,6 @@ export const convertMdFileToString = async (file: File) => {
 		const arrayBuffer = await convertFileToArrBuffer(file);
 
 		const markdownString = decoder.decode(arrayBuffer);
-		// console.log('mdBlob', mdBlob);
-		console.log('markdownString', markdownString);
-		console.log('file', file);
 
 		if (!markdownString) {
 			throw new Error('error converting markdown file to string');

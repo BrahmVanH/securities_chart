@@ -98,8 +98,6 @@ export default function SecuritiesForm() {
 				securitiesRating,
 			};
 
-			console.log('mdString', mdString);
-			console.log('formInput', formInput);
 			const newEntry = await createEntry({
 				variables: {
 					entry,

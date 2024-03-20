@@ -8,10 +8,12 @@ import { AppWrapper } from './utils/styled';
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
-// TODO: move to .env in new apollo function
+// Define the uri for the ApolloClient based on production or dev
 
 const functionUri = import.meta.env.PROD ? import.meta.env.VITE_FUNCTION_URI : import.meta.env.VITE_LOCALHOST;
 
+
+// Create the ApolloClient
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	uri: functionUri,
