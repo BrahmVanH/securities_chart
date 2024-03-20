@@ -40,7 +40,6 @@ export const convertFileToArrBuffer = (file: File) => {
 	});
 };
 
-// TO-DO: Update type validation for file uploads
 const validateType = (fileName: string) => {
 	const ext = fileName.split('.').pop();
 	if (!ext) {

@@ -1,4 +1,3 @@
-// import { gql } from '../__generated__/gql';
 import {gql } from '@apollo/client';
 
 export const CREATE_ENTRY = gql(/* GraphQL */ `

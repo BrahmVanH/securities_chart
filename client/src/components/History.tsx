@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// import { getEntries } from '../utils/API';
 import { FormattedEntry } from '../types';
 import { formatAllDates } from '../utils/helpers';
 import { HistoryWrapper, EntriesContainer } from '../utils/styled';
@@ -12,23 +11,6 @@ const History: React.FC = () => {
 	const [entries, setEntries] = useState<FormattedEntry[] | null>(null);
 
 	const { data, loading, error } = useQuery(GET_ENTRIES);
-
-	// const handleGetEntries = useCallback(async () => {
-
-	// 	try {
-	// 		const entries = await getEntries();
-	// 		if (entries) {
-	// 			setEntries(entries);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 		throw new Error('Error fetching entries');
-	// 	}
-	// }, []);
-
-	// useEffect(() => {
-	// 	handleGetEntries();
-	// }, [handleGetEntries]);
 
 	useEffect(() => {
 		if (error) {
