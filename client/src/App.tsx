@@ -6,15 +6,19 @@ import { ThemeProvider } from 'styled-components';
 import Nav from './components/Nav';
 import { AppWrapper } from './utils/styled';
 
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 // TODO: move to .env in new apollo function
 
-const functionUri = 'https://y89300t3va.execute-api.us-east-1.amazonaws.com';
+const functionUri = process.env.NODE_ENV === 'production' ? 'https://y89300t3va.execute-api.us-east-1.amazonaws.com' : 'http://localhost:3000';
 
+// const client = new ApolloClient({
+// 	cache: new InMemoryCache(),
+// 	link: new HttpLink({ uri: functionUri, fetchOptions: { mode: 'no-cors' }, headers: { 'Access-Control-Allow-Origin': '*' } }),
+// });
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link: new HttpLink({ uri: functionUri, fetchOptions: { mode: 'no-cors' }, headers: { 'Access-Control-Allow-Origin': '*' } }),
+	uri: functionUri,
 });
 
 function App() {

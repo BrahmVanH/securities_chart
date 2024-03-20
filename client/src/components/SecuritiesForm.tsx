@@ -8,6 +8,7 @@ import { useMutation } from '@apollo/client';
 import { Form, SliderWrapper, InputSlider, ButtonWrapper } from '../utils/styled';
 // , HiddenInput
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
+import { EntryInput, SecuritiesRatingInput } from '../__generated__/graphql';
 
 export default function SecuritiesForm() {
 	const {
@@ -83,28 +84,31 @@ export default function SecuritiesForm() {
 				throw new Error('file and financial fields are required');
 			}
 
-		const mdString = await convertMdFileToString(formInput.file[0]);
-		const securitiesRating = {
-			dietary: formInput.dietary,
-			financial: formInput.financial,
-			fitness: formInput.fitness,
-			mental: formInput.mental,
-			professional: formInput.professional,
-			social: formInput.social,
-		};
-		console.log('mdString', mdString);
-		console.log('formInput', formInput);
-		const newEntry = await createEntry({
-			variables: {
-				date: new Date().toISOString(),
+			const mdString = await convertMdFileToString(formInput.file[0]);
+			const securitiesRating: SecuritiesRatingInput = {
+				dietary: parseInt(formInput.dietary),
+				financial: parseInt(formInput.financial),
+				fitness: parseInt(formInput.fitness),
+				mental: parseInt(formInput.mental),
+				professional: parseInt(formInput.professional),
+				social: parseInt(formInput.social),
+			};
+			const entry: EntryInput = {
 				text: mdString,
 				securitiesRating,
-			},
-		});
+			};
 
-		if (newEntry) {
-			console.log('newEntry', newEntry);
-		}
+			console.log('mdString', mdString);
+			console.log('formInput', formInput);
+			const newEntry = await createEntry({
+				variables: {
+					entry,
+				},
+			});
+
+			if (newEntry) {
+				console.log('newEntry', newEntry);
+			}
 
 			formRef.current?.reset();
 		} catch (error) {
@@ -118,7 +122,6 @@ export default function SecuritiesForm() {
 			handleSendForm(formInput);
 		}
 	}, [formInput]);
-
 
 	return (
 		<Form onSubmit={handleSubmit((data) => setFormInput(data))} ref={formRef}>

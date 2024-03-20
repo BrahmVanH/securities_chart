@@ -2,18 +2,18 @@
 import {gql } from '@apollo/client';
 
 export const CREATE_ENTRY = gql(/* GraphQL */ `
-	mutation AddEntry($date: String!, $text: String!, $securitiesRating: SecuritiesRatingInput!) {
-		addEntry(date: $date, text: $text, securitiesRating: $securitiesRating) {
+	mutation CreateEntry($entry: EntryInput) {
+		createEntry(entry: $entry) {
 			id
 			date
 			text
 			securitiesRating {
-				dietary
 				financial
 				fitness
+				dietary
 				mental
-				professional
 				social
+				professional
 			}
 		}
 	}

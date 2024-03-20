@@ -1,37 +1,44 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { getEntries } from '../utils/API';
+// import { getEntries } from '../utils/API';
 import { FormattedEntry } from '../types';
 import { formatAllDates } from '../utils/helpers';
 import { HistoryWrapper, EntriesContainer } from '../utils/styled';
 import EntryCard from './EntryCard';
+import { useQuery } from '@apollo/client';
+import { GET_ENTRIES } from '../utils/queries';
 
-
-const History = () => {
+const History: React.FC = () => {
 	const [entries, setEntries] = useState<FormattedEntry[] | null>(null);
 
-	const handleGetEntries = useCallback(async () => {
-		try {
-			const entries = await getEntries();
-			if (entries) {
-				setEntries(entries);
-			}
-		} catch (error) {
+	const { data, loading, error } = useQuery(GET_ENTRIES);
+
+	// const handleGetEntries = useCallback(async () => {
+
+	// 	try {
+	// 		const entries = await getEntries();
+	// 		if (entries) {
+	// 			setEntries(entries);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 		throw new Error('Error fetching entries');
+	// 	}
+	// }, []);
+
+	// useEffect(() => {
+	// 	handleGetEntries();
+	// }, [handleGetEntries]);
+
+	useEffect(() => {
+		if (error) {
 			console.error(error);
-			throw new Error('Error fetching entries');
 		}
-	}, []);
-
-	useEffect(() => {
-		handleGetEntries();
-	}, [handleGetEntries]);
-
-	useEffect(() => {
-		if (entries) {
-			const formattedEntries = formatAllDates(entries.filter((entry): entry is FormattedEntry => entry !== null));
+		if (!loading && data) {
+			const formattedEntries = formatAllDates(data.allEntries.filter((entry: any): entry is FormattedEntry => entry !== null));
 			setEntries(formattedEntries);
 		}
-	}, [entries]);
+	}, [data, error, loading]);
 
 	return (
 		<HistoryWrapper>

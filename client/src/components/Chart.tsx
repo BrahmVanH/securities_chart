@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { VictoryChart, VictoryBar, VictoryPolarAxis, VictoryTheme } from 'victory';
 import { IChartFCProps } from '../types';
 
 const Chart: React.FC<IChartFCProps> = (props: Readonly<IChartFCProps>) => {
 	const data = props?.data;
+
+	useEffect(() => {
+		console.log('typeof financial', typeof data.securitiesRating?.financial);
+		console.log('typeof fitness', typeof data.securitiesRating?.fitness);
+		console.log('typeof dietary', typeof data.securitiesRating?.dietary);
+		console.log('typeof social', typeof data.securitiesRating?.social);
+		console.log('typeof professional', typeof data.securitiesRating?.professional);
+		
+
+	}, [data]);
 
 	return (
 		<VictoryChart polar theme={VictoryTheme.material}>

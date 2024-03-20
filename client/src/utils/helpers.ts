@@ -1,4 +1,5 @@
-import { IEntry, ISecuritiesRating } from '../types';
+import { ISecuritiesRating } from '../types';
+import { Entry } from '../__generated__/graphql';
 
 const formatDate = (date: string) => {
 	const d = new Date(date);
@@ -8,7 +9,7 @@ const formatDate = (date: string) => {
 	return `${month}/${day}/${year}`;
 };
 
-export const formatAllDates = (entries: IEntry[]) => {
+export const formatAllDates = (entries: Entry[]) => {
 	return entries.map((entry) => {
 		if (!entry.date) {
 			return entry;

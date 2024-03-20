@@ -1,3 +1,5 @@
+import { Entry } from "./__generated__/graphql";
+
 interface ISecuritiesRating {
 	financial: number;
 	fitness: number;
@@ -13,7 +15,7 @@ export interface IEntry {
 	securitiesRating?: ISecuritiesRating;
 }
 
-export type FormattedEntry = IEntry & { formattedDate?: string };
+export type FormattedEntry = Entry & { formattedDate?: string };
 
 export interface IChartFCProps {
 	data: FormattedEntry;
