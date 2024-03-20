@@ -10,7 +10,7 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/c
 
 // TODO: move to .env in new apollo function
 
-const functionUri = 'https://y89300t3va.execute-api.us-east-1.amazonaws.com/graphql';
+const functionUri = 'https://y89300t3va.execute-api.us-east-1.amazonaws.com';
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
