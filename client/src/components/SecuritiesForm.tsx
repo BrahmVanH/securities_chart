@@ -6,7 +6,6 @@ import { CREATE_ENTRY } from '../utils/mutations';
 import { convertMdFileToString } from '../utils/helpers';
 import { useMutation } from '@apollo/client';
 import { Form, SliderWrapper, InputSlider, ButtonWrapper } from '../utils/styled';
-// , HiddenInput
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 import { EntryInput, SecuritiesRatingInput } from '../__generated__/graphql';
 
@@ -17,9 +16,6 @@ export default function SecuritiesForm() {
 		formState: { errors },
 	} = useForm<FieldValues>();
 
-	// const { ref, ...fields } = register('file', { required: { value: true, message: 'all fields are required' } });
-
-	// const hiddenInputRef = useRef<HTMLInputElement | null>(null);
 
 	const [financial, setFinancial] = useState<number>(0);
 	const [fitness, setFitness] = useState<number>(0);
@@ -71,10 +67,6 @@ export default function SecuritiesForm() {
 		setProfessional(0);
 	}, []);
 
-	// const triggerHiddenInput = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-	// 	event.preventDefault();
-	// 	hiddenInputRef.current?.click();
-	// };
 
 	const [createEntry] = useMutation(CREATE_ENTRY);
 
