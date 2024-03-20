@@ -106,8 +106,8 @@ export default function SecuritiesForm() {
 				},
 			});
 
-			if (newEntry) {
-				console.log('newEntry', newEntry);
+			if (!newEntry) {
+				throw new Error('error in sending form');
 			}
 
 			formRef.current?.reset();
