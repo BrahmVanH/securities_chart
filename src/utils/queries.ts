@@ -17,3 +17,21 @@ export const GET_ENTRIES = gql(/* GraphQL */ `
 		}
 	}
 `);
+
+export const GET_ENTRY = gql(/* GraphQL */ `
+	query getEntry($id: ID!) {
+		getEntry(id: $id) {
+			id
+			date
+			text
+			securitiesRating {
+				dietary
+				financial
+				fitness
+				mental
+				professional
+				social
+			}
+		}
+	}
+`);

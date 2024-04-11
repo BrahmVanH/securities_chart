@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FiBarChart2 } from 'react-icons/fi';
 import Chart from './Chart';
 import { FormattedEntry, IEntryCardFCProps, ISecuritiesRating } from '../types';
@@ -32,20 +33,22 @@ const EntryCard: React.FC<IEntryCardFCProps> = (props: IEntryCardFCProps) => {
 	}, [entry]);
 
 	return (
-		<CardWrapper onClick={() => handleShowDetails()}>
-			<Preview>
-				<FiBarChart2 style={{ margin: '0.5rem' }} size={'36px'} />
-				{entry && entry.formattedDate && averageRating ? (
-					<>
-						<p style={{ margin: '0.5rem' }}>{entry.formattedDate}</p>
-						<StarRating rating={averageRating} />
-					</>
-				) : (
-					<></>
-				)}
-			</Preview>
-			{openDetails && entry ? <Chart data={entry} /> : <></>}
-		</CardWrapper>
+		<Link to={`/entry/${entry?.id}`}>
+			<CardWrapper>
+				<Preview>
+					<FiBarChart2 style={{ margin: '0.5rem' }} size={'36px'} />
+					{entry && entry.formattedDate && averageRating ? (
+						<>
+							<p style={{ margin: '0.5rem' }}>{entry.formattedDate}</p>
+							<StarRating rating={averageRating} />
+						</>
+					) : (
+						<></>
+					)}
+				</Preview>
+				{openDetails && entry ? <Chart data={entry} /> : <></>}
+			</CardWrapper>
+		</Link>
 	);
 };
 
