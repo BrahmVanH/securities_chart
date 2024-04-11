@@ -4,22 +4,20 @@ import { IChartFCProps } from '../types';
 
 const Chart: React.FC<IChartFCProps> = (props: Readonly<IChartFCProps>) => {
 	const data = props?.data;
+	const [securitiesRating, setSecuritiesRating] = React.useState(data.securitiesRating);
 
 	return (
 		<VictoryChart polar theme={VictoryTheme.material}>
-			{Object.keys(data).map((key, i) => {
-				if (key !== '_id') {
-					return <VictoryPolarAxis dependentAxis key={i} label={key} labelPlacement='perpendicular' style={{ tickLabels: { fill: 'none' } }} axisValue={key} />;
-				}
-			})}
+			<VictoryPolarAxis 
+				style={{ axis: { stroke: 'none' }, tickLabels: { fill: 'black' } }} />
 			<VictoryBar
-				style={{ data: { fill: 0o0, width: 25 } }}
+				style={{ data: { fill: 0o0, stroke: 'black', fillOpacity: 0.7, strokeWidth: 2 , width: 25 }, labels: { fill: 'black', fontSize: 15 }}}
 				data={[
-					{ x: 'financial', y: data.securitiesRating?.financial },
 					{ x: 'fitness', y: data.securitiesRating?.fitness },
+					{ x: 'professional', y: data.securitiesRating?.professional },
+					{ x: 'financial', y: data.securitiesRating?.financial },
 					{ x: 'dietary', y: data.securitiesRating?.dietary },
 					{ x: 'social', y: data.securitiesRating?.social },
-					{ x: 'professional', y: data.securitiesRating?.professional },
 				]}
 			/>
 		</VictoryChart>

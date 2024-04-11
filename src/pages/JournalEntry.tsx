@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { IEntry } from '../types';
 import { GET_ENTRY } from '../utils/queries';
 import { Entry } from '../__generated__/graphql';
-import { formatDate } from '../utils/helpers';
+import { formatJournalEntryDate } from '../utils/helpers';
 import Chart from '../components/Chart';
 
 const JournalEntryWrapper = styled.div(({ theme }) => ({
@@ -22,9 +22,10 @@ const JournalEntryContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 80%;
+	width: 90%;
 	border: 1px solid white;
 	border-radius: 65px;
+	padding: 1rem 0rem;
 `;
 
 const JournalText = styled.div(({ theme }) => ({
@@ -39,6 +40,7 @@ const ChartWrapper = styled.div({
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
+	// maxWidth: 'min-content',
 });
 
 export default function JournalEntry() {
@@ -83,7 +85,7 @@ export default function JournalEntry() {
 
 	useEffect(() => {
 		if (entry?.date) {
-			setFormattedDate(formatDate(entry.date));
+			setFormattedDate(formatJournalEntryDate(entry.date));
 		}
 	}, [entry.date]);
 
@@ -97,8 +99,8 @@ export default function JournalEntry() {
 		<JournalEntryWrapper>
 			{entry.securitiesRating && journalText && formattedDate ? (
 				<JournalEntryContainer>
-					<h1>{formattedDate}</h1>
-					<JournalText style={{ width: '100vw', height: 'min-content' }} dangerouslySetInnerHTML={{ __html: journalText }}></JournalText>
+					<h1 style={{borderBottom: '1px solid white', paddingBottom: '0.5rem'}}>{formattedDate}</h1>
+					<JournalText dangerouslySetInnerHTML={{ __html: journalText }}></JournalText>
 					<ChartWrapper>
 						<Chart data={entry} />
 					</ChartWrapper>

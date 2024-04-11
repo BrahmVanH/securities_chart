@@ -1,13 +1,28 @@
 import { ISecuritiesRating } from '../types';
 import { Entry } from '../__generated__/graphql';
 
-export const formatDate = (date: string) => {
+const formatDate = (date: string) => {
 	const d = new Date(date);
 	const year = d.getFullYear();
 	const month = d.getMonth() + 1;
 	const day = d.getDate();
 	return `${month}/${day}/${year}`;
 };
+
+const getDayOfWeek = (day: number) => {
+	const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	return days[day];
+};
+
+export const formatJournalEntryDate = (date: string) => {
+	const d = new Date(date);
+	const year = d.getFullYear();
+	const month = d.getMonth() + 1;
+	const dayOfMonth = d.getDate();
+	const dayOfWeek = getDayOfWeek(d.getDay());
+
+	return `${dayOfWeek} - ${month}/${dayOfMonth}/${year}`;
+}
 
 export const formatAllDates = (entries: Entry[]) => {
 	return entries.map((entry) => {
