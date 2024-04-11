@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { IButtonSCProps, ILabelSCProps } from '../types';
+import { IButtonSCProps, ILabelSCProps, ILinkProps } from '../types';
 import { Slider } from '@mui/material';
+import {Link as RouterLink} from 'react-router-dom';
 
 export const Preview = styled.div`
 	width: 95%;
@@ -23,72 +24,29 @@ export const CardWrapper = styled.div(({ theme }) => ({
 	borderRadius: '10px',
 }));
 
-export const NavpadWrapper = styled.div`
-	width: 100%;
-	background-color: transparent;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
 
-export const Navpad = styled.nav(({ theme }) => ({
-	position: 'fixed',
-	bottom: 0,
-	width: '75%',
-	height: '10%',
-	backgroundColor: theme.sanMarino,
-	border: `1px solid ${theme.stroke}`,
-	borderTopLeftRadius: '45px',
-	borderTopRightRadius: '45px',
-	display: 'flex',
-	justifyContent: 'space-evenly',
-	alignItems: 'center',
-}));
 
-export const Form = styled.form`
-	margin-top: 10%;
-	width: 80%;
-	height: min-content;
-	padding: 3rem 2rem;
-	border: 1px solid white;
-	border-radius: 65px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 
-	@media (min-width: 768px) {
-		width: 30%;
-    margin-top: 7.5%;
-		height: 60%;
-	}
-`;
 
-export const SliderWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	width: 80%;
-`;
 
-export const InputSlider = styled(Slider)(({ theme }) => ({
-	color: `${theme.stroke} !important`,
-}));
-
-export const ButtonWrapper = styled.div`
-	margin-top: 2rem;
-	display: flex;
-	justify-content: space-around;
-	align-items: flex-end;
-	width: 100%;
-`;
 
 export const HiddenInput = styled.input`
 	display: none;
 `;
 
 export const Button = styled.button<IButtonSCProps>(({ theme, $margin, $width, $fontSize, $useBorder }) => ({
+	width: $width || '30%',
+	height: '50%',
+	margin: $margin || '0rem',
+	padding: '0rem',
+	backgroundColor: 'transparent',
+	color: theme.stroke,
+	fontSize: $fontSize || '1.5rem',
+	border: $useBorder ? `1px solid ${theme.stroke}` : 'none',
+	borderRadius: $useBorder ? '10px' : '',
+}));
+
+export const StyledLink = styled(RouterLink)<ILinkProps>(({ theme, $margin, $width, $fontSize, $useBorder }) => ({
 	width: $width || '30%',
 	height: '50%',
 	margin: $margin || '0rem',

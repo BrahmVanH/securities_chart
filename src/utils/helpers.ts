@@ -1,7 +1,7 @@
 import { ISecuritiesRating } from '../types';
 import { Entry } from '../__generated__/graphql';
 
-const formatDate = (date: string) => {
+export const formatDate = (date: string) => {
 	const d = new Date(date);
 	const year = d.getFullYear();
 	const month = d.getMonth() + 1;

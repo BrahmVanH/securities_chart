@@ -33,7 +33,7 @@ const EntryCard: React.FC<IEntryCardFCProps> = (props: IEntryCardFCProps) => {
 	}, [entry]);
 
 	return (
-		<Link to={`/entry/${entry?.id}`}>
+		<Link to={`/entry/${entry?._id}`} state={{ entryId: entry?._id}}>
 			<CardWrapper>
 				<Preview>
 					<FiBarChart2 style={{ margin: '0.5rem' }} size={'36px'} />

@@ -27,19 +27,17 @@ function App() {
 		stroke: '#fff',
 	};
 
-	const handleShowHistory = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		event.preventDefault();
-		setShowHistory(!showHistory);
-	};
+
 
 	return (
 		<Router>
 			<ApolloProvider client={client}>
 				<ThemeProvider theme={theme}>
 					<AppWrapper>
-						<Nav handleShowHistory={handleShowHistory} />
-						{!showHistory ? <SecuritiesForm /> : <History />}
+						<Nav/>
 						<Routes>
+							<Route path='/' element={<SecuritiesForm />} />
+							<Route path='/history' element={<History/>} />
 							<Route path='/entry/:entry' element={<JournalEntry />} />
 						</Routes>
 					</AppWrapper>

@@ -32,6 +32,13 @@ export interface IButtonSCProps {
 	$fontSize?: string;
 }
 
+export interface ILinkProps { 
+	$margin?: string;
+	$fontSize?: string;
+	$useBorder?: boolean;
+	$width?: string;
+}
+
 export interface IInputSCProps {
 	$width?: string;
 }

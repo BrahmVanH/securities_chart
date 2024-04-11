@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
+import { gql } from "../__generated__";
 
 export const GET_ENTRIES = gql(/* GraphQL */ `
 	query GetEntries {
 		allEntries {
-			id
+			_id
 			date
 			text
 			securitiesRating {
@@ -19,9 +19,9 @@ export const GET_ENTRIES = gql(/* GraphQL */ `
 `);
 
 export const GET_ENTRY = gql(/* GraphQL */ `
-	query getEntry($id: ID!) {
-		getEntry(id: $id) {
-			id
+	query getEntry($_id: ID!) {
+		getEntry(_id: $_id) {
+			_id
 			date
 			text
 			securitiesRating {

@@ -1,9 +1,9 @@
-import {gql } from '@apollo/client';
+import {gql } from "../__generated__";
 
 export const CREATE_ENTRY = gql(/* GraphQL */ `
 	mutation CreateEntry($entry: EntryInput) {
 		createEntry(entry: $entry) {
-			id
+			_id
 			date
 			text
 			securitiesRating {

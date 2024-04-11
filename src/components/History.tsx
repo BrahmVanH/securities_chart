@@ -16,7 +16,7 @@ const History: React.FC = () => {
 		if (error) {
 			console.error(error);
 		}
-		if (!loading && data) {
+		if (!loading && data?.allEntries) {
 			const formattedEntries = formatAllDates(data.allEntries.filter((entry: any): entry is FormattedEntry => entry !== null));
 			setEntries(formattedEntries);
 		}

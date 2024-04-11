@@ -5,9 +5,51 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { CREATE_ENTRY } from '../utils/mutations';
 import { convertMdFileToString } from '../utils/helpers';
 import { useMutation } from '@apollo/client';
-import { Form, SliderWrapper, InputSlider, ButtonWrapper } from '../utils/styled';
+import styled from 'styled-components';
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 import { EntryInput, SecuritiesRatingInput } from '../__generated__/graphql';
+import Slider from '@mui/material/Slider';
+
+const Form = styled.form`
+	margin-top: 10%;
+	height: min-content;
+	padding: 3rem 2rem;
+	width: 80%;
+	border: 1px solid white;
+	border-radius: 65px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	@media (min-width: 768px) {
+		width: 30%;
+		margin-top: 7.5%;
+		height: 60%;
+	}
+`;
+
+
+export const SliderWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 80%;
+`;
+
+export const InputSlider = styled(Slider)(({ theme }) => ({
+	color: `${theme.stroke} !important`,
+}));
+
+export const ButtonWrapper = styled.div`
+	margin-top: 2rem;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-end;
+	width: 100%;
+`;
+
 
 export default function SecuritiesForm() {
 	const {
