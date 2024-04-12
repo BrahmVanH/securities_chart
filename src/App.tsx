@@ -4,12 +4,11 @@ import SecuritiesForm from './components/SecuritiesForm';
 import { ThemeProvider } from 'styled-components';
 import Nav from './components/Nav';
 import { AppWrapper } from './utils/styled';
-import History from './components/History';
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Loading from './components/Loading';
 const JournalEntry = lazy(() => import('./pages/JournalEntry'));
-// const History = lazy(() => import('./components/History'));
+const History = lazy(() => import('./components/History'));
 
 // Define the uri for the ApolloClient based on production or dev
 
@@ -36,8 +35,7 @@ export default function App() {
 						<Nav />
 						<Routes>
 							<Route path='/' element={<SecuritiesForm />} />
-							{/* <Route path='/history' element={<HistoryPage />} /> */}
-							<Route path='/history' element={<History />} />
+							<Route path='/history' element={<HistoryPage />} />
 							<Route path='/entry/:entry' element={<JournalEntryPage />} />
 						</Routes>
 					</AppWrapper>
@@ -47,11 +45,11 @@ export default function App() {
 	);
 }
 
-// const HistoryPage = () => (
-// 	<Suspense fallback={<Loading />}>
-// 		<History />
-// 	</Suspense>
-// );
+const HistoryPage = () => (
+	<Suspense fallback={<Loading />}>
+		<History />
+	</Suspense>
+);
 
 const JournalEntryPage = () => (
 	<Suspense fallback={<Loading />}>
