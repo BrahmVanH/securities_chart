@@ -12,8 +12,8 @@ const manifestForPlugIn: VitePWAOptions = {
 	registerType: 'prompt',
 	includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
 	manifest: {
-		name: 'journal-logger-app',
-		short_name: 'journal-logger-app',
+		name: 'DailyJournalApp',
+		short_name: 'DailyJournalApp',
 		description: 'App that your daily journal entries, uploaded as markdown, and accepts ratings for various personal securities',
 		icons: [
 			{
