@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import SecuritiesForm from './components/SecuritiesForm';
-import History from './components/History';
 import { ThemeProvider } from 'styled-components';
 import Nav from './components/Nav';
 import { AppWrapper } from './utils/styled';
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import JournalEntry from './pages/JournalEntry';
+import Loading from './components/Loading';
+const JournalEntry = lazy(() => import('./pages/JournalEntry'));
+const History = lazy(() => import('./components/History'));
 
 // Define the uri for the ApolloClient based on production or dev
 
@@ -19,26 +20,23 @@ const client = new ApolloClient({
 	uri: functionUri,
 });
 
-function App() {
-	const [showHistory, setShowHistory] = useState<boolean>(false);
+export default function App() {
 	const theme = {
 		putty: '#c7a96e',
 		sanMarino: '#57779d',
 		stroke: '#fff',
 	};
 
-
-
 	return (
 		<Router>
 			<ApolloProvider client={client}>
 				<ThemeProvider theme={theme}>
 					<AppWrapper>
-						<Nav/>
+						<Nav />
 						<Routes>
 							<Route path='/' element={<SecuritiesForm />} />
-							<Route path='/history' element={<History/>} />
-							<Route path='/entry/:entry' element={<JournalEntry />} />
+							<Route path='/history' element={<HistoryPage />} />
+							<Route path='/entry/:entry' element={<JournalEntryPage />} />
 						</Routes>
 					</AppWrapper>
 				</ThemeProvider>
@@ -47,4 +45,14 @@ function App() {
 	);
 }
 
-export default App;
+const HistoryPage = () => (
+	<Suspense fallback={<Loading />}>
+		<History />
+	</Suspense>
+);
+
+const JournalEntryPage = () => (
+	<Suspense fallback={<Loading />}>
+		<JournalEntry />
+	</Suspense>
+);

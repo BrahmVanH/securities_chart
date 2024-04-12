@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-
+import { useState, useEffect } from 'react';
 import { FormattedEntry } from '../types';
 import { formatAllDates } from '../utils/helpers';
 import { HistoryWrapper, EntriesContainer } from '../utils/styled';
 import EntryCard from './EntryCard';
 import { useQuery } from '@apollo/client';
 import { GET_ENTRIES } from '../utils/queries';
+import Loading from './Loading';
 
-const History: React.FC = () => {
+export default function History() {
 	const [entries, setEntries] = useState<FormattedEntry[] | null>(null);
 
 	const { data, loading, error } = useQuery(GET_ENTRIES);
@@ -23,19 +23,24 @@ const History: React.FC = () => {
 	}, [data, error, loading]);
 
 	return (
-		<HistoryWrapper>
-			<h1>History</h1>
-			{entries ? (
-				<EntriesContainer>
-					{entries.map((entry, index) => (
-						<EntryCard key={index} entry={entry} />
-					))}
-				</EntriesContainer>
+		<>
+			{loading ? (
+				<Loading />
 			) : (
-				<></>
+				<HistoryWrapper>
+					<h1 style={{ textAlign: 'center', width: '60%', borderBottom: '1px solid white', paddingBottom: '0.5rem' }}>History</h1>
+					{entries ? (
+						<EntriesContainer>
+							{entries.map((entry, index) => (
+								<EntryCard key={index} entry={entry} />
+							))}
+						</EntriesContainer>
+					) : (
+						<></>
+					)}
+				</HistoryWrapper>
 			)}
-		</HistoryWrapper>
+		</>
 	);
 };
 
-export default History;

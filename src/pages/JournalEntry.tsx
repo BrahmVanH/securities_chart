@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { marked } from 'marked';
 import styled from 'styled-components';
-import { IEntry } from '../types';
 import { GET_ENTRY } from '../utils/queries';
 import { Entry } from '../__generated__/graphql';
 import { formatJournalEntryDate } from '../utils/helpers';

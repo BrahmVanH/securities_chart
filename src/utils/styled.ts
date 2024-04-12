@@ -1,28 +1,8 @@
 import styled from 'styled-components';
 import { IButtonSCProps, ILabelSCProps, ILinkProps } from '../types';
-import { Slider } from '@mui/material';
 import {Link as RouterLink} from 'react-router-dom';
 
-export const Preview = styled.div`
-	width: 95%;
-	display: flex;
-	flex-direction: row !important;
-	justify-content: space-between;
-	align-items: center;
-`;
 
-export const CardWrapper = styled.div(({ theme }) => ({
-	width: '90%',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'space-between',
-	alignItems: 'center',
-	backgroundColor: 'transparent',
-	padding: '0.5rem',
-	borderBottom: `1px solid ${theme.stroke}`,
-	borderRight: `1px solid ${theme.stroke}`,
-	borderRadius: '10px',
-}));
 
 
 
@@ -88,7 +68,7 @@ export const HistoryWrapper = styled.div(({ theme }) => ({
 }));
 
 export const EntriesContainer = styled.div`
-	height: 100%;
+	height: 70%;
 	width: 90%;
 	margin: 1rem;
 	border-radius: 30px;
@@ -98,6 +78,7 @@ export const EntriesContainer = styled.div`
 	align-items: center;
 	margin: 0.5rem;
 	overflow-y: scroll;
+	padding: 1rem 0rem;
 
 	@media (min-width: 768px) {
 		width: 30%;

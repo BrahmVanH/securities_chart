@@ -4,7 +4,6 @@ import { IChartFCProps } from '../types';
 
 const Chart: React.FC<IChartFCProps> = (props: Readonly<IChartFCProps>) => {
 	const data = props?.data;
-	const [securitiesRating, setSecuritiesRating] = React.useState(data.securitiesRating);
 
 	return (
 		<VictoryChart polar theme={VictoryTheme.material}>

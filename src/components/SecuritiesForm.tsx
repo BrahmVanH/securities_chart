@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-
 import { Button, Label } from '../utils/styled';
 import { useForm, FieldValues } from 'react-hook-form';
 import { CREATE_ENTRY } from '../utils/mutations';
@@ -9,6 +8,7 @@ import styled from 'styled-components';
 import { IoSendOutline, IoCloseCircleOutline } from 'react-icons/io5';
 import { EntryInput, SecuritiesRatingInput } from '../__generated__/graphql';
 import Slider from '@mui/material/Slider';
+import Loading from './Loading';
 
 const Form = styled.form`
 	margin-top: 10%;
@@ -28,7 +28,6 @@ const Form = styled.form`
 		height: 60%;
 	}
 `;
-
 
 export const SliderWrapper = styled.div`
 	display: flex;
@@ -50,7 +49,6 @@ export const ButtonWrapper = styled.div`
 	width: 100%;
 `;
 
-
 export default function SecuritiesForm() {
 	const {
 		register,
@@ -58,7 +56,7 @@ export default function SecuritiesForm() {
 		formState: { errors },
 	} = useForm<FieldValues>();
 
-
+	const [loading, setLoading] = useState<boolean>(false);
 	const [financial, setFinancial] = useState<number>(0);
 	const [fitness, setFitness] = useState<number>(0);
 	const [mental, setMental] = useState<number>(0);
@@ -109,10 +107,10 @@ export default function SecuritiesForm() {
 		setProfessional(0);
 	}, []);
 
-
 	const [createEntry] = useMutation(CREATE_ENTRY);
 
 	const handleSendForm = async (formInput: FieldValues) => {
+		setLoading(true);
 		try {
 			if (!formInput.file || !formInput.financial || !formInput.fitness || !formInput.dietary || !formInput.social || !formInput.professional) {
 				throw new Error('file and financial fields are required');
@@ -143,6 +141,7 @@ export default function SecuritiesForm() {
 			}
 
 			formRef.current?.reset();
+			setLoading(false);
 		} catch (error) {
 			console.error('error', error);
 			throw new Error('error in sending form');
@@ -157,60 +156,66 @@ export default function SecuritiesForm() {
 
 	return (
 		<Form onSubmit={handleSubmit((data) => setFormInput(data))} ref={formRef}>
-			<SliderWrapper>
-				<Label $fontSize={'1.25rem'} htmlFor='financial'>
-					Financial
-				</Label>
-				<InputSlider {...register('financial')} value={financial} min={0} max={5} onChange={handleFinChange} />
-				{errors.financial && errors.financial.type === 'required' && <span>financial is required</span>}
+			{loading ? (
+				<Loading />
+			) : (
+				<>
+					<SliderWrapper>
+						<Label $fontSize={'1.25rem'} htmlFor='financial'>
+							Financial
+						</Label>
+						<InputSlider {...register('financial')} value={financial} min={0} max={5} onChange={handleFinChange} />
+						{errors.financial && errors.financial.type === 'required' && <span>financial is required</span>}
 
-				<Label $fontSize={'1.25rem'} htmlFor='fitness'>
-					Fitness
-				</Label>
-				<InputSlider {...register('fitness')} value={fitness} min={0} max={5} onChange={handleFitChange} />
-				{errors.fitness && errors.fitness.type === 'required' && <span>fitness is required</span>}
+						<Label $fontSize={'1.25rem'} htmlFor='fitness'>
+							Fitness
+						</Label>
+						<InputSlider {...register('fitness')} value={fitness} min={0} max={5} onChange={handleFitChange} />
+						{errors.fitness && errors.fitness.type === 'required' && <span>fitness is required</span>}
 
-				<Label $fontSize={'1.25rem'} htmlFor='mental'>
-					Mental
-				</Label>
-				<InputSlider {...register('mental')} value={mental} min={0} max={5} onChange={handleMentalChange} />
-				{errors.mental && errors.mental.type === 'required' && <span>mental is required</span>}
+						<Label $fontSize={'1.25rem'} htmlFor='mental'>
+							Mental
+						</Label>
+						<InputSlider {...register('mental')} value={mental} min={0} max={5} onChange={handleMentalChange} />
+						{errors.mental && errors.mental.type === 'required' && <span>mental is required</span>}
 
-				<Label $fontSize={'1.25rem'} htmlFor='dietary'>
-					Dietary
-				</Label>
-				<InputSlider {...register('dietary')} value={dietary} min={0} max={5} onChange={handleDietChange} />
-				{errors.dietary && errors.dietary.type === 'required' && <span>dietary is required</span>}
+						<Label $fontSize={'1.25rem'} htmlFor='dietary'>
+							Dietary
+						</Label>
+						<InputSlider {...register('dietary')} value={dietary} min={0} max={5} onChange={handleDietChange} />
+						{errors.dietary && errors.dietary.type === 'required' && <span>dietary is required</span>}
 
-				<Label $fontSize={'1.25rem'} htmlFor='social'>
-					Social
-				</Label>
-				<InputSlider {...register('social')} value={social} min={0} max={5} onChange={handleSocChange} />
-				{errors.social && errors.social.type === 'required' && <span>social is required</span>}
+						<Label $fontSize={'1.25rem'} htmlFor='social'>
+							Social
+						</Label>
+						<InputSlider {...register('social')} value={social} min={0} max={5} onChange={handleSocChange} />
+						{errors.social && errors.social.type === 'required' && <span>social is required</span>}
 
-				<Label $fontSize={'1.25rem'} htmlFor='professional'>
-					Professional
-				</Label>
-				<InputSlider {...register('professional')} value={professional} min={0} max={5} onChange={handleProfChange} />
-				{errors.professional && errors.professional.type === 'required' && <span>professional is required</span>}
+						<Label $fontSize={'1.25rem'} htmlFor='professional'>
+							Professional
+						</Label>
+						<InputSlider {...register('professional')} value={professional} min={0} max={5} onChange={handleProfChange} />
+						{errors.professional && errors.professional.type === 'required' && <span>professional is required</span>}
 
-				{/* <HiddenInput ref={hiddenInputRef} type='file' {...fields} /> */}
-				<input type='file' {...register('file', { required: { value: true, message: 'all fields are required' } })} />
-				{errors.file && errors.file.type === 'required' && <span>file is required</span>}
+						{/* <HiddenInput ref={hiddenInputRef} type='file' {...fields} /> */}
+						<input type='file' {...register('file', { required: { value: true, message: 'all fields are required' } })} />
+						{errors.file && errors.file.type === 'required' && <span>file is required</span>}
 
-				{/* <Button type='submit' $fontSize={'1.25rem'} $margin={'2rem 0rem 0rem 0rem'} $width={'75%'} $useBorder={true} onClick={triggerHiddenInput}>
+						{/* <Button type='submit' $fontSize={'1.25rem'} $margin={'2rem 0rem 0rem 0rem'} $width={'75%'} $useBorder={true} onClick={triggerHiddenInput}>
 					Upload Markdown
 				</Button> */}
-			</SliderWrapper>
+					</SliderWrapper>
 
-			<ButtonWrapper>
-				<Button onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleResetForm(event)}>
-					<IoCloseCircleOutline size={'32px'} />
-				</Button>
-				<Button type='submit'>
-					<IoSendOutline size={'32px'} />
-				</Button>
-			</ButtonWrapper>
+					<ButtonWrapper>
+						<Button onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleResetForm(event)}>
+							<IoCloseCircleOutline size={'32px'} />
+						</Button>
+						<Button type='submit'>
+							<IoSendOutline size={'32px'} />
+						</Button>
+					</ButtonWrapper>
+				</>
+			)}
 		</Form>
 	);
 }

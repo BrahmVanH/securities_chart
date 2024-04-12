@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { INavFCProps } from '../types';
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import { IButtonSCProps, ILabelSCProps, ILinkProps } from '../types';
+import { IButtonSCProps, ILinkProps } from '../types';
 
 
 import { IoBarChartOutline, IoAddCircleOutline } from 'react-icons/io5';
@@ -63,10 +62,8 @@ export const StyledLink = styled(RouterLink)<ILinkProps>(({ theme, $margin, $wid
 	fontSize: $fontSize ?? '1.5rem',
 	border: $useBorder ? `1px solid ${theme.stroke}` : 'none',
 	borderRadius: $useBorder ? '10px' : '',
+	textAlign: 'center',
 }));
-
-
-
 
 
 export default function Nav() {
@@ -78,7 +75,6 @@ export default function Nav() {
 			const currentScrollPos = window.scrollY;
 			const scrollThreshold = 50; 
 
-			// Check if user is scrolling down or up
 			if (prevScrollPos < currentScrollPos && currentScrollPos > scrollThreshold) {
 				setIsNavOpen(false); 
 			} else {
@@ -88,10 +84,8 @@ export default function Nav() {
 			setPrevScrollPos(currentScrollPos);
 		};
 
-		// Add scroll event listener when component mounts
 		window.addEventListener('scroll', handleScroll);
 
-		// Remove scroll event listener when component unmounts
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
@@ -101,11 +95,11 @@ export default function Nav() {
 		<NavpadWrapper>
 			<Navpad className={`nav-drawer ${isNavOpen ? 'open' : 'closed'}`}>
 				<StyledLink $margin={'0.5rem 0rem 0rem 0rem'} to={'/history'}>
-					<IoBarChartOutline size={'32px'} />
+					<IoBarChartOutline size={'40px'} />
 				</StyledLink>
 				<span style={{ fontSize: '48px', color: 'white', fontWeight: '100' }}>|</span>
 				<StyledLink $margin={'0.5rem 0rem 0rem 0rem'} to={'/'}>
-					<IoAddCircleOutline size={'32px'} />
+					<IoAddCircleOutline size={'42px'} />
 				</StyledLink>
 			</Navpad>
 		</NavpadWrapper>
