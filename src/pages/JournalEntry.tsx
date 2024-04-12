@@ -7,6 +7,7 @@ import { GET_ENTRY } from '../utils/queries';
 import { Entry } from '../__generated__/graphql';
 import { formatJournalEntryDate } from '../utils/helpers';
 import Chart from '../components/Chart';
+import Loading from '../components/Loading';
 
 const JournalEntryWrapper = styled.div(({ theme }) => ({
 	background: `linear-gradient(${theme.putty},${theme.sanMarino})`,
@@ -96,7 +97,7 @@ export default function JournalEntry() {
 
 	return (
 		<JournalEntryWrapper>
-			{entry.securitiesRating && journalText && formattedDate ? (
+			{entry.securitiesRating && journalText && formattedDate && !loading ? (
 				<JournalEntryContainer>
 					<h1 style={{borderBottom: '1px solid white', paddingBottom: '0.5rem'}}>{formattedDate}</h1>
 					<JournalText dangerouslySetInnerHTML={{ __html: journalText }}></JournalText>
@@ -105,7 +106,7 @@ export default function JournalEntry() {
 					</ChartWrapper>
 				</JournalEntryContainer>
 			) : (
-				<></>
+				<Loading />
 			)}
 		</JournalEntryWrapper>
 	);
