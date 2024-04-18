@@ -95,8 +95,7 @@ export default function SecuritiesForm() {
 		setMental(newValue as number);
 	};
 
-	const handleResetForm = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		event.preventDefault();
+	const handleResetForm = useCallback(() => {
 		formRef.current?.reset();
 		setFormInput(null);
 		setFinancial(0);
@@ -140,7 +139,7 @@ export default function SecuritiesForm() {
 				throw new Error('error in sending form');
 			}
 
-			formRef.current?.reset();
+			handleResetForm();
 			setLoading(false);
 		} catch (error) {
 			console.error('error', error);
@@ -207,7 +206,7 @@ export default function SecuritiesForm() {
 					</SliderWrapper>
 
 					<ButtonWrapper>
-						<Button onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleResetForm(event)}>
+						<Button onClick={handleResetForm}>
 							<IoCloseCircleOutline size={'32px'} />
 						</Button>
 						<Button type='submit'>
